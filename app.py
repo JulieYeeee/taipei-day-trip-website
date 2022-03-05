@@ -29,7 +29,6 @@ def index():
 	return render_template("index.html")
 @app.route("/attraction/<id>")
 def attraction(id):
-
 	return render_template("attraction.html")
 @app.route("/booking")
 def booking():
@@ -38,7 +37,7 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-@app.route("/api/attractions",methods=["get"])
+@app.route("/api/attractions",)
 def search():
 	#先處理關鍵字查詢抓取資料
 	keyword=request.args.get("keyword")
@@ -116,4 +115,4 @@ def showAttraction(attractionId):
 
 
 if __name__ == "__main__":
-	app.run(port=3000)
+	app.run(host='0.0.0.0',port=3000)
