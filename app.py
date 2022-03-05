@@ -3,15 +3,22 @@ from flask import *
 from flask import make_response
 import mysql.connector
 import math
+from configparser import ConfigParser
+
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
 
+cfg=ConfigParser()
+cfg.read("db.ini")
+db_cfg=dict(cfg.items("logindata"))
+
+
 mydb = mysql.connector.connect(
   host="localhost",
-  user="root",
-  password="test1234",
+  user=db_cfg["user"],
+  password=db_cfg["psw"],
   database="website"
 )
 mycursor=mydb.cursor(buffered=True)
