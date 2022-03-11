@@ -284,6 +284,7 @@ footer {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
+    margin: 1.5%;
   }
   main .attractions-container .adaptLayer .attraction .image {
     width: 100%;
@@ -323,6 +324,7 @@ footer {
   }
   main .attractions-container .adaptLayer .attraction {
     width: 95%;
+    margin: 1.25%;
   }
   main .attractions-container .adaptLayer .attraction .image {
     height: 0;

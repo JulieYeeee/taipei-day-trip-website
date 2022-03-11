@@ -75,7 +75,7 @@ function errorMsg(openData,attractionsContainer){
     msg.classList.add("errorMsg");
     msg.innerText=info;
     attractionsContainer.appendChild(msg);
-    attractionsContainer.style.height="100vw";
+    attractionsContainer.style.padding="3.2rem";
 }
 
 ////listen to load////
@@ -90,7 +90,7 @@ window.addEventListener("scroll",()=>{
             page++;
             console.log(page);
             console.log(keyword);
-            fetchData(keyword,page);
+            window.setTimeout(fetchData,1000,keyword,page);
          
 }
     // else if(openData["nextpage"]===null){
