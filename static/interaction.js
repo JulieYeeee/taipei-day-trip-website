@@ -90,7 +90,7 @@ window.addEventListener("scroll",()=>{
             page++;
             console.log(page);
             console.log(keyword);
-            window.setTimeout(fetchData,1000,keyword,page);
+            window.setTimeout(fetchData,1500,keyword,page);
          
 }
     // else if(openData["nextpage"]===null){
