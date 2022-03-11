@@ -43,6 +43,7 @@ def search():
 	#先處理關鍵字查詢抓取資料
 	keyword=request.args.get("keyword")
 	page=int(request.args.get("page"))#要求字串轉數值
+	# page=request.args.get("page")#要求字串轉數值
 	sql="SELECT COUNT(*) FROM attractions WHERE stitle LIKE %s"
 	val=("%"+keyword+"%",)
 	mycursor.execute(sql,val)
@@ -115,6 +116,6 @@ def showAttraction(attractionId):
 
 
 
-
 if __name__ == "__main__":
+	# app.debug = True
 	app.run(host="0.0.0.0",port=3000)

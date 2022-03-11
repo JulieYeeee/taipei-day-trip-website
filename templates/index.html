@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Taipei Trip 台北一日遊</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav> 
+                <H1 class="logo">台北一日遊</H1>
+                <ul class="menu">
+                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#">登入/註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="search-container">
+        <div class="search">
+            <h2 class="slogan">輕鬆享受台北一日悠閒</h2>
+            <p class="description">探索每個角落，體驗城市的深度旅遊行程</p>
+            <form class="search-engine" action="/api/attractions">
+                <input type="text" name="keyword"placeholder="輸入景點名稱查詢">
+                <button tpye="submit"></button>
+                <!-- <span class="iconify" data-icon="simple-line-icons:magnifier" style="color: white;"></span> -->
+            </form>
+        </div>
+    </div>
+    </header>
+    <main>
+        <div class="attractions-container">
+            <div class="adaptLayer">
+           <!-- space for fetch data -->
+        </div>
+        </div>
+    </main>
+    <footer>
+        <p>COPYRIGHT©2021台北一日遊</p>
+    </footer>
+        <script src="/static/interaction.js" ></script>
+</body>
+</html>

@@ -13,6 +13,7 @@ with open(r"data\taipei-attractions.json",mode="r",encoding="utf-8") as file:
     data=json.load(file) 
     # print(data)
 coreData=data["result"]["results"]
+# print(coreData)
 # length=len(coreData)
 # print(length)
 for attraction in coreData:
@@ -42,7 +43,7 @@ for attraction in coreData:
       images=images
     finalFile=[]
     for url in images:
-      if "jpg" in url or "png" in url: 
+      if "jpg" in url or "JPG" in url or "PNG" in url or "png" in url: 
         finalFile.append(url)
     images=",".join(finalFile)
     # print(images)  
