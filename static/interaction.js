@@ -2,10 +2,11 @@
 let openData={};
 let keyword="";
 let page=0;
+let checkLoad=false;
 ///fetch attractions///
 function fetchData(keyword,page){
     let attractionsContainer=document.querySelector(".adaptLayer");
-    console.log("are you kidding")
+    console.log("fetch in process")
     fetch(`/api/attractions?keyword=${keyword}&page=${page}`)
     .then(response=>{
         let res=response.json();
@@ -26,7 +27,7 @@ function fetchData(keyword,page){
 }
 
 
-
+///處理fetch後的景點資料///
 function startAppend(data,attractionsContainer){
     lengthOfData=data["data"].length;
     // console.log(lengthOfData);
@@ -66,6 +67,7 @@ function startAppend(data,attractionsContainer){
     attInfo.appendChild(mrt);
     attInfo.appendChild(cat);
     }
+    checkLoad=false;
 }
 //處理查關鍵字錯誤訊息//
 function errorMsg(openData,attractionsContainer){
@@ -85,17 +87,16 @@ window.addEventListener("load",()=>{
 
 ////listen to scroll////
 window.addEventListener("scroll",()=>{
-    if(window.scrollY+window.innerHeight+1>=document.documentElement.scrollHeight){
-        if (openData["nextpage"]!==null){
-            page++;
-            console.log(page);
-            console.log(keyword);
-            window.setTimeout(fetchData,1500,keyword,page);
-         
+    if (checkLoad===false){
+        if(window.scrollY+window.innerHeight+1>=document.documentElement.scrollHeight){
+            if (openData["nextpage"]!==null){
+                checkLoad=true;
+                page++;
+                console.log(keyword);
+                // window.setTimeout(fetchData,1500,keyword,page);
+                fetchData(keyword,page);
 }
-    // else if(openData["nextpage"]===null){
-    //     window.removeEventListener("scroll",loadData,false);
-    // }
+}
 }
 })
 
