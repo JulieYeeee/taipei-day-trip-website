@@ -20,6 +20,8 @@ mydb = mysql.connector.connect(
   host="localhost",
   user=db_cfg["user"],
   password=db_cfg["psw"],
+#   user="root",
+#   password="test1234",
   database="website"
 )
 mycursor=mydb.cursor(buffered=True)

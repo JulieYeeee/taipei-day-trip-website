@@ -189,6 +189,7 @@ main .attractions-container .adaptLayer .attraction {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  position: relative;
 }
 
 main .attractions-container .adaptLayer .attraction .image {
@@ -234,6 +235,14 @@ main .attractions-container .adaptLayer .attraction .att-info .mrt {
 main .attractions-container .adaptLayer .attraction .att-info .cat {
   position: relative;
   right: 10px;
+}
+
+main .attractions-container .adaptLayer .attraction .link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
 }
 
 footer {
