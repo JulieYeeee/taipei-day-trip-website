@@ -54,6 +54,7 @@ function fetchData(id){
 let imageCcontainer=document.querySelector(".image-container");
 let trackContainer=document.querySelector(".track-container");
 let slidesBox=document.querySelector(".slides-box");//圖片外層ul
+console.log(slidesBox);
 let navButtonsBox=document.querySelector(".nav-buttons");
 let navButtons=[];
 let slides=[];
@@ -135,6 +136,7 @@ transInfo.innerText=coreData["transport"];
 //////preparation//////
 //////////////////////
 let moveWay=slidesBox.getBoundingClientRect().width;
+console.log(slidesBox);
 console.log("moveWayOK");
 let index=1;
 slidesBox.style.transform="translateX(-"+moveWay*index+"px)";

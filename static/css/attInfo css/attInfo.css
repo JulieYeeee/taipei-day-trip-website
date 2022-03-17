@@ -76,6 +76,7 @@ header .nav-container nav ul a {
 
 .image-container .slides-box {
   position: relative;
+  width: 100%;
   height: 25rem;
   border-radius: 5px;
   display: -webkit-box;
