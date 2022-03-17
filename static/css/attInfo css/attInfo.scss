@@ -12,6 +12,10 @@
   --black: #000000;
   --white: #ffffff;
 }
+html,
+body {
+  overflow-x: hidden;
+}
 
 header {
   .nav-container {
@@ -48,28 +52,22 @@ header {
 .image-container {
   width: 50%;
   position: relative;
+  border-radius: 5px;
+  overflow: hidden;
   .slides-box {
-    //ul
     position: relative;
-    // width: 100%;
     height: 25rem;
-    // padding-bottom: 25rem;
     border-radius: 5px;
-    overflow: hidden;
+    display: flex; ///新增
     .slide {
+      flex-shrink: 0; ///新增
       width: 100%;
       height: 25rem;
-      overflow: hidden;
-      position: absolute;
-      left: 100%;
       img {
         height: 100%;
         width: 100%;
         object-fit: cover;
       }
-    }
-    .current-slide {
-      left: 0;
     }
   }
   .slide-button {
@@ -114,25 +112,11 @@ main {
     padding-top: 54px;
     flex-wrap: wrap;
     justify-content: center;
-    // .image-container {
-    //   width: 50%;
-    //   margin: 0.5rem;
-
-    //   img {
-    //     object-fit: cover;
-    //     width: 100%;
-    //     height: 100%;
-    //   }
-    // }
     .att-booking-zone {
       width: 45%;
-      // height: 0px;
       margin: 0.5rem;
       display: flex;
       flex-direction: column;
-      // justify-content: space-between;
-      // padding-bottom: 5rem;
-      // background: pink;
       color: var(--deepgray);
       .att-guide {
         display: flex;
@@ -153,8 +137,6 @@ main {
         background: var(--lightgray);
         padding: 10px 0px;
         border-radius: 5px;
-        // margin-top: 0.5rem;
-
         form {
           padding: 0 10px;
           width: 100%;
@@ -163,7 +145,7 @@ main {
           justify-content: space-around;
           background-color: var(--lightgray);
           padding-bottom: 10px;
-          height: 100%; /////////////////////////////////修改
+          height: 100%;
           .date {
             display: flex;
             flex-wrap: wrap;
@@ -253,31 +235,34 @@ footer {
     }
   }
   main {
-    .booking-button {
-      width: 100px;
-    }
     .attraction-container {
       width: 100%;
       .image-container {
         width: 50%;
-        height: fit-content;
+        .slides-box {
+          width: 100%;
+          .slide {
+            width: 100%;
+            height: 25rem;
+          }
+        }
       }
       .att-booking-zone {
         width: 42%;
-        form {
-          .time-radios {
-            flex-direction: column;
+        .booking {
+          form {
+            .booking-button {
+              width: 50%;
+              height: 40px;
+            }
           }
-          // .booking-button {
-          //   width: 100%;
-          // }
         }
       }
     }
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 600px) {
   header {
     .nav-container {
       nav {
@@ -290,6 +275,13 @@ footer {
       .image-container {
         width: 100%;
         margin: 0rem;
+        .slides-box {
+          width: 100%;
+          .slide {
+            width: 100%;
+            height: 25rem;
+          }
+        }
       }
       .att-booking-zone {
         width: 100%;

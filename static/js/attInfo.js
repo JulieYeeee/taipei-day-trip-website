@@ -66,7 +66,17 @@ function startAppendImages(){
     let coreData=openData["data"];
     let images=coreData["images"];
     let imgAmount=images.length;
-    ///append images and build nav-button///
+/////specific appending for carousel function////
+////the oder for appending can not be chanded////
+    let slide1=document.createElement("div");
+    slide1.classList.add("slide");
+    let img1=document.createElement("img");
+    img1.src=images[imgAmount-1];
+    console.log(img1.src);
+    slidesBox.appendChild(slide1);
+    slide1.appendChild(img1);
+
+////normal appending ////
     images.forEach(image => {
         let slide=document.createElement("div");
         slide.classList.add("slide");
@@ -78,6 +88,18 @@ function startAppendImages(){
         slide.appendChild(img);
         navButtonsBox.appendChild(navButton);
     })
+//////specific appending for carousel function////
+////the oder for appending can not be chanded////
+    let slide2=document.createElement("div");
+    slide2.classList.add("slide");
+    let img2=document.createElement("img");
+    img2.src=images[0];
+    console.log(img2.src);
+    slidesBox.appendChild(slide2);
+    slide2.appendChild(img2);
+
+    slidesBox.firstElementChild.id="lastClone";
+    slidesBox.lastElementChild.id="firstClone";
     slidesBox.firstElementChild.classList.add("current-slide");
     navButtonsBox.firstElementChild.classList.add("current-button");
     slides=Array.from(slidesBox.children);
@@ -86,7 +108,7 @@ function startAppendImages(){
     console.log("complete append");
 }
 
-////append test////
+////append text////
 function startAppendText(){
 let coreData=openData["data"];
 let attName=document.querySelector(".att-name");
@@ -109,55 +131,60 @@ let transInfo=document.querySelector(".trans-info");
 transInfo.innerText=coreData["transport"];
 
 }
+///////////////////////
+//////preparation//////
+//////////////////////
+let moveWay=slidesBox.getBoundingClientRect().width;
+console.log("moveWayOK");
+let index=1;
+slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
+
 ////////////////////////////
 ///listen to next button///
 ///////////////////////////
 let nextButton=document.querySelector(".next-button");
 nextButton.addEventListener("click",()=>{
-    let currentSlide=document.querySelector(".current-slide");
-    let currentIndex=slides.indexOf(currentSlide);
-    let slidesLength=slides.length;
-    let nextSlide="";
-
-    if(currentIndex!==slidesLength-1){
-        nextSlide=currentSlide.nextElementSibling;
-        currentSlide.classList.remove("current-slide");
-        nextSlide.classList.add("current-slide");
-        currentIndex=slides.indexOf(nextSlide);
-    }else{
-        currentSlide.classList.remove("current-slide");
-        slides[0].classList.add("current-slide");
-        currentIndex=0;
+    if(index<slides.length-1){
+    index++;
+    slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
+    slidesBox.style.transition="ease 0.5s";
+    controlNavButton();
     }
-    let currentButton=document.querySelector(".current-button");
-    let nextBtn=navButtons[currentIndex];
-    currentButton.classList.remove("current-button");
-    nextBtn.classList.add("current-button");
 })
+
+
 ///////////////////////////////
 ///listen to previous button///
 ///////////////////////////////
 let preButton=document.querySelector(".pre-button");
 preButton.addEventListener("click",()=>{
-    let currentSlide=document.querySelector(".current-slide");
-    let currentIndex=slides.indexOf(currentSlide);
-    let slidesLength=slides.length;
+    if(index<=0) return;
+    index--;
+    slidesBox.style.transform="translateX(-"+moveWay*index+"px)"; //point!
+    slidesBox.style.transition="ease 0.5s";
+    controlNavButton();
+    })
 
-    if(currentIndex!==0){
-        let preSlide=currentSlide.previousElementSibling;
-        currentSlide.classList.remove("current-slide");
-        preSlide.classList.add("current-slide");
-        currentIndex=slides.indexOf(preSlide);
-    }else{
-        lastIndex=slidesLength-1;
-        currentSlide.classList.remove("current-slide");
-        slides[lastIndex].classList.add("current-slide");
-        currentIndex=lastIndex;
+
+//////////////////////////////////
+//////listen to transtionend/////
+/////////////////////////////////
+slidesBox.addEventListener("transitionend",()=>{
+    if(slides[index].id==="firstClone"){
+        console.log("here hi");
+        index=1;
+        slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
+        slidesBox.style.transition="none";
+        controlNavButton();
+
     }
-    let currentButton=document.querySelector(".current-button");
-    let nextBtn=navButtons[currentIndex];
-    currentButton.classList.remove("current-button");
-    nextBtn.classList.add("current-button");
+    if(slides[index].id==="lastClone"){
+        console.log("prebutton");
+        index=slides.length-2;
+        slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
+        slidesBox.style.transition="none";
+        controlNavButton();
+    }
 })
 
 ///////////////////////////
@@ -171,13 +198,18 @@ function changNavButton(){
             let nextButtonIndex=navButtons.indexOf(button);
             currentButton.classList.remove("current-button");
             navButtons[nextButtonIndex].classList.add("current-button");
-
-            let currentSlide=document.querySelector(".current-slide");
-            let nextSlide=slides[nextButtonIndex];
-            currentSlide.classList.remove("current-slide");
-            nextSlide.classList.add("current-slide");
-            console.log("change nav button complete");
+            slidesBox.style.transform="translateX(-"+moveWay*(nextButtonIndex+1)+"px)"; //point!
+            slidesBox.style.transition="ease 0.5s";
+            index=nextButtonIndex+1;
         })
     })
+}
+
+/////處理nav button同步變動//////
+function controlNavButton(){
+    let currentButton=document.querySelector(".current-button");
+    let nextButton=navButtons[index-1];
+    nextButton.classList.add("current-button");
+    currentButton.classList.remove("current-button");
 }
 
