@@ -19,10 +19,8 @@ db_cfg=dict(cfg.items("logindata"))
 
 mydb = mysql.connector.connect(
   host="localhost",
-#   user=db_cfg["user"],
-#   password=db_cfg["psw"],
-user="root",
-  password="test1234",
+  user=db_cfg["user"],
+  password=db_cfg["psw"],
   database="website"
 )
 mycursor=mydb.cursor(buffered=True)
@@ -117,9 +115,7 @@ def showAttraction(attractionId):
 		return jsonify(warning),500
 	
 
-#################################################
-
-
+#以下新增user操作之Api
 @app.route("/api/user",methods=["GET"])
 def checkMemberStatus():
 	email=session.get("email")
