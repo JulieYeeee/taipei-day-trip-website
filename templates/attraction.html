@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/attInfo css/attInfo.css">
+    
+    <title>Taipei Trip 台北一日遊</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav> 
+                <H1 class="logo">台北一日遊</H1>
+                <ul class="menu">
+                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#">登入/註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="attraction-container">
+            <!-- carousel function -->
+            <div class="image-container">
+                <div class="slides-box">
+                    <!-- show carousel images -->
+                </div>
+                <button class="slide-button pre-button"><img src="/static/images/btn_leftArrow.png" alt=""></button>
+                <button class="slide-button next-button"><img src="/static/images/btn_rightArrow.png" alt=""></button>
+                <div class="nav-buttons">
+             <!-- carousel nav buttons -->
+                </div>
+            </div>
+            <!-- carousel function -->
+            <div class="att-booking-zone">
+                <div class="att-guide">
+                    <h2 class="att-name">後花園</h2>
+                    <div class="att-info">
+                        <h3 class="cat">自然景點</h3><h3>at</h3><h3 class="mrt">忠孝復興</h3>
+                    </div>
+                </div>
+            
+                <div class="booking">
+                    <form action="#">
+                        <h4>訂購導覽行程</h4>
+                        <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                        <div class="date">
+                            <h4>選擇日期：</h4>
+                            <input type="date" >
+                        </div>
+                        <div class="time-radios">
+                            <h4>選擇時間：</h4>
+                            <label for="morning">
+                                <input type="radio" name="booking-time" id="morning" class="radio-input" checked="checked">
+                                <div id="morning" class="radio-div"></div> 
+                                <p>上半天</p>
+                            </label>
+                        
+                            <label for="afternoon">
+                                <input type="radio" name="booking-time" id="afternoon" class="radio-input">
+                                <div id="afternoon" class="radio-div"></div>
+                                <p>下半天</p>
+                            </label>
+                        </div>
+                        <h4>導覽費用：</h4>
+                        <p class="fees">新台幣 2000 元整</p>
+                        <button type="submit" class="booking-button">開始預訂行程</button>
+                    </form>
+                </div>
+        </div>
+        <div class="line"></div>
+        <div class="more-info">
+        <section class="intro">
+            <!-- intro will be fetched and shown here -->
+        </section>    
+        <div class="location">
+        <h4>景點地址：</h4>
+        <p class="address">
+            <!-- address will be shown here -->
+        </p>
+    </div>
+        <div class="transportation">
+        <h4>交通方式：</h4>
+        <p class="trans-info">
+            <!-- trans info will be shown here -->
+        </p>
+    </div>
+        </div>
+    </div>
+    </main>
+  
+    <footer>
+        <p>COPYRIGHT©2021台北一日遊</p>
+    </footer>
+        <script src="/static/js/attInfo.js" ></script>
+</body>
+</html>
