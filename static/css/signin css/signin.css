@@ -1,0 +1,206 @@
+:root {
+  --deepgray: #666666;
+  --green: #448899;
+  --lightgray: #e8e8e8;
+  --middlegray: #cccccc;
+  --black: #000000;
+  --white: #ffffff;
+}
+
+html .signInBackground,
+body .signInBackground {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--black);
+  opacity: 0.25;
+  display: none;
+  -webkit-animation-name: float;
+          animation-name: float;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+}
+
+html .signin-signup-form,
+body .signin-signup-form {
+  width: 340px;
+  background-color: var(--white);
+  border-radius: 6px;
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-animation-name: formfloat;
+          animation-name: formfloat;
+  -webkit-animation-duration: 1.5s;
+          animation-duration: 1.5s;
+  z-index: 1500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+html .signin-signup-form .border-deco,
+body .signin-signup-form .border-deco {
+  background: -webkit-gradient(linear, left top, right top, from(#66aabb), to(#337788));
+  background: linear-gradient(90deg, #66aabb 0%, #337788 100%);
+  border-radius: 6px 6px 0 0;
+  width: 100%;
+  height: 10px;
+}
+
+html .signin-signup-form .close-button,
+body .signin-signup-form .close-button {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 1.1rem;
+  top: 1.625rem;
+  cursor: pointer;
+  background: url("/static/images/icon_close.png");
+}
+
+html .signin-signup-form .signin-signup-title,
+body .signin-signup-form .signin-signup-title {
+  font-size: 1.5rem;
+  color: var(--deepgray);
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+html .signin-signup-form .signin-signup-inputs,
+body .signin-signup-form .signin-signup-inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+}
+
+html .signin-signup-form .signin-signup-inputs input,
+body .signin-signup-form .signin-signup-inputs input {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: var(--middlegray) 1px solid;
+}
+
+html .signin-signup-form .signin-signup-inputs .input-name,
+body .signin-signup-form .signin-signup-inputs .input-name {
+  display: none;
+}
+
+html .signin-signup-form .signin-signup-inputs button,
+body .signin-signup-form .signin-signup-inputs button {
+  background: var(--green);
+  color: var(--white);
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 1.1875rem;
+}
+
+html .signin-signup-form .reminder,
+body .signin-signup-form .reminder {
+  color: red;
+  margin: 5px 0;
+}
+
+html .signin-signup-form .note-zone,
+body .signin-signup-form .note-zone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+html .signin-signup-form .note-zone p,
+html .signin-signup-form .note-zone a,
+body .signin-signup-form .note-zone p,
+body .signin-signup-form .note-zone a {
+  text-decoration: none;
+  color: var(--deepgray);
+}
+
+html .signin-signup-form .note-zone a,
+body .signin-signup-form .note-zone a {
+  cursor: pointer;
+}
+
+html .signin-signup-form .blank-space,
+body .signin-signup-form .blank-space {
+  width: 100%;
+  height: 10px;
+}
+
+html .turn-on,
+body .turn-on {
+  display: none;
+}
+
+@-webkit-keyframes float {
+  from {
+    top: -10px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 0.25;
+  }
+}
+
+@keyframes float {
+  from {
+    top: -10px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 0.25;
+  }
+}
+
+@-webkit-keyframes formfloat {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes formfloat {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*# sourceMappingURL=signin.css.map */

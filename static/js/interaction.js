@@ -1,4 +1,4 @@
-
+let pageName="indexPage";
 let openData={};
 let keyword="";
 let page=0;
@@ -75,6 +75,7 @@ function startAppend(data,attractionsContainer){
     a.appendChild(link);
     }
     checkLoad=false;
+    console.log("首頁載入景點完成")
 }
 //處理查關鍵字錯誤訊息//
 function errorMsg(openData,attractionsContainer){
@@ -87,10 +88,12 @@ function errorMsg(openData,attractionsContainer){
     attractionsContainer.style.padding="3.2rem";
 }
 
+
 ////listen to load////
+let buffer=false;
 window.addEventListener("load",()=>{
-    fetchData(keyword,page);
-})
+    checkMemberStatus();
+});
 
 ////listen to scroll////
 window.addEventListener("scroll",()=>{
@@ -100,11 +103,10 @@ window.addEventListener("scroll",()=>{
                 checkLoad=true;
                 page++;
                 console.log(keyword);
-                // window.setTimeout(fetchData,1500,keyword,page);
                 fetchData(keyword,page);
-}
-}
-}
+            }
+        }
+    }
 })
 
 ////listen to button//// 
