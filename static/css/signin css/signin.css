@@ -32,8 +32,8 @@ body .signin-signup-form {
   position: fixed;
   top: 80px;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  -webkit-transform: translateX(-170px);
+          transform: translateX(-170px);
   -webkit-animation-name: formfloat;
           animation-name: formfloat;
   -webkit-animation-duration: 1.5s;

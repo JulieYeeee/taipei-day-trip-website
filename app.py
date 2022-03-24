@@ -124,7 +124,7 @@ def checkMemberStatus():
 		print("會員未登入，session狀態:",email)
 		return jsonify({"data":data})
 	else:
-		sql="SELECT * FROM TourMember WHERE email=%s LIMIT %s"
+		sql="SELECT * FROM tourmember WHERE email=%s LIMIT %s"
 		val=(email,1,)
 		mycursor.execute(sql,val)
 		result=mycursor.fetchone()
@@ -142,7 +142,7 @@ def signup():
 	memberData=getMemberData(email)
 
 	if memberData==None:
-		sql="INSERT INTO TourMember (name,email,password) VALUES (%s,%s,%s)"
+		sql="INSERT INTO tourmember (name,email,password) VALUES (%s,%s,%s)"
 		val=(name,email,password,)
 		mycursor.execute(sql,val)
 		mydb.commit()
@@ -157,7 +157,7 @@ def signup():
 		return jsonify({"error": True,"message": "OOPS!網站出了點錯誤"}),500
 
 def getMemberData(email):
-	sql="SELECT * FROM TourMember WHERE email=%s LIMIT %s"
+	sql="SELECT * FROM tourmember WHERE email=%s LIMIT %s"
 	val=(email,1,)
 	mycursor.execute(sql,val)
 	result=mycursor.fetchone()
@@ -182,7 +182,7 @@ def signin():
 		return jsonify({"error":True,"message":"OOPS!網路出了點錯誤"}),500		
 
 def checkMemberData(email,password):
-	sql="SELECT COUNT(*) FROM TourMember WHERE email=%s AND password=%s LIMIT %s"
+	sql="SELECT COUNT(*) FROM tourmember WHERE email=%s AND password=%s LIMIT %s"
 	val=(email,password,1,)
 	mycursor.execute(sql,val)
 	result=mycursor.fetchone()
