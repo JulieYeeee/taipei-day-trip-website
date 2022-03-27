@@ -32,6 +32,7 @@ header .nav-container {
   position: fixed;
   height: 54px;
   z-index: 10;
+  border-bottom: var(--lightgray) solid 1px;
 }
 
 header .nav-container nav {
@@ -108,6 +109,8 @@ header .nav-container nav ul a {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 .image-container .next-button {
@@ -126,10 +129,11 @@ header .nav-container nav ul a {
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
-  border-color: var(--white);
+  border-color: var(--white) solid 1px;
   margin: 0 5px;
   background: var(--lightgray);
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .image-container .nav-buttons .current-button {
@@ -156,6 +160,7 @@ main .attraction-container {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: 60px 0;
 }
 
 main .attraction-container .att-booking-zone {
@@ -220,6 +225,16 @@ main .attraction-container .att-booking-zone .booking form {
   background-color: var(--lightgray);
   padding-bottom: 10px;
   height: 100%;
+}
+
+main .attraction-container .att-booking-zone .booking form .fees-zone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 main .attraction-container .att-booking-zone .booking form .date {
@@ -287,7 +302,7 @@ main .attraction-container .att-booking-zone .booking form .booking-button {
 main .attraction-container .line {
   width: 95%;
   height: 1px;
-  margin: 1rem;
+  margin: 2rem 0 0 0;
   background: var(--lightgray);
 }
 
@@ -375,7 +390,7 @@ footer {
   }
   main .attraction-container .att-booking-zone .booking form h4,
   main .attraction-container .att-booking-zone .booking form p {
-    padding: 5px 0;
+    padding: 7px 0;
   }
   main .attraction-container .att-booking-zone .booking form .booking-button {
     width: 40%;

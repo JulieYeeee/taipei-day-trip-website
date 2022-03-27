@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/attInfo css/attInfo.css">
+    <link rel="stylesheet" href="/static/css/signin css/signin.css">
     
     <title>Taipei Trip 台北一日遊</title>
 </head>
@@ -15,7 +16,7 @@
                 <H1 class="logo">台北一日遊</H1>
                 <ul class="menu">
                     <li><a href="#">預定行程</a></li>
-                    <li><a href="#">登入/註冊</a></li>
+                    <li><a href="#" class="member-status">登入/註冊</a></li>
                 </ul>
             </nav>
         </div>
@@ -36,9 +37,9 @@
             <!-- carousel function -->
             <div class="att-booking-zone">
                 <div class="att-guide">
-                    <h2 class="att-name">後花園</h2>
+                    <h2 class="att-name"></h2>
                     <div class="att-info">
-                        <h3 class="cat">自然景點</h3><h3>at</h3><h3 class="mrt">忠孝復興</h3>
+                        <h3 class="cat"></h3><h3> at </h3><h3 class="mrt"></h3>
                     </div>
                 </div>
             
@@ -48,7 +49,7 @@
                         <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
                         <div class="date">
                             <h4>選擇日期：</h4>
-                            <input type="date" >
+                            <input type="date">
                         </div>
                         <div class="time-radios">
                             <h4>選擇時間：</h4>
@@ -64,8 +65,10 @@
                                 <p>下半天</p>
                             </label>
                         </div>
-                        <h4>導覽費用：</h4>
-                        <p class="fees">新台幣 2000 元整</p>
+                        <div class="fees-zone">
+                            <h4>導覽費用：</h4>
+                            <p class="fees">新台幣 2000 元整</p>
+                        </div>
                         <button type="submit" class="booking-button">開始預訂行程</button>
                     </form>
                 </div>
@@ -95,5 +98,6 @@
         <p>COPYRIGHT©2021台北一日遊</p>
     </footer>
         <script src="/static/js/attInfo.js" ></script>
+        <script src="/static/js/signin-signup.js"></script>
 </body>
 </html>

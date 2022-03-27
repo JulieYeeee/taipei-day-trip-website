@@ -1,6 +1,6 @@
-//////////////////////////////
+let pageName="attPage";
+
 ////show touring guide fee////
-//////////////////////////////
 let morningTime=document.querySelector("input[id='morning']");
 morningTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
@@ -12,27 +12,22 @@ afternoonTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
     fees.innerText="新台幣 2500 元整";
 })
-//////////////////////////////////
+
 ////listen to load and fetch ////
-/////////////////////////////////
 window.addEventListener("load",()=>{
-   let passId=getId();
-   console.log("get id:"+passId);
-   fetchData(passId);
+   checkMemberStatus();
 })
-//////////////////////////////
+
 //// get id of attraction////
-/////////////////////////////
 function getId(){
     let url=window.location.href;
     let id=url.substring(url.lastIndexOf("/")+1);
     return id;
 }
-/////////////////////////////////
+
 ////fetch data of attraction////
-////////////////////////////////
 let openData={};
-function fetchData(id){
+function fetchAttData(id){
     console.log("fetch in process");
     fetch(`/api/attraction/${id}`)
     .then(response=>{
@@ -54,30 +49,27 @@ function fetchData(id){
 let imageCcontainer=document.querySelector(".image-container");
 let trackContainer=document.querySelector(".track-container");
 let slidesBox=document.querySelector(".slides-box");//圖片外層ul
-console.log(slidesBox);
 let navButtonsBox=document.querySelector(".nav-buttons");
 let navButtons=[];
 let slides=[];
 
-////////////////////////
+
 ////append data////////
-//////////////////////
-////append images////
+////append images first////
 function startAppendImages(){
     let coreData=openData["data"];
     let images=coreData["images"];
     let imgAmount=images.length;
 /////specific appending for carousel function////
-////the oder for appending can not be chanded////
+////the order for appending can not be changed////
     let slide1=document.createElement("div");
     slide1.classList.add("slide");
     let img1=document.createElement("img");
     img1.src=images[imgAmount-1];
-    console.log(img1.src);
     slidesBox.appendChild(slide1);
     slide1.appendChild(img1);
 
-////normal appending ////
+////appending ////
     images.forEach(image => {
         let slide=document.createElement("div");
         slide.classList.add("slide");
@@ -90,18 +82,17 @@ function startAppendImages(){
         navButtonsBox.appendChild(navButton);
     })
 //////specific appending for carousel function////
-////the oder for appending can not be chanded////
+////the order for appending can not be changed////
     let slide2=document.createElement("div");
     slide2.classList.add("slide");
     let img2=document.createElement("img");
     img2.src=images[0];
-    console.log(img2.src);
     slidesBox.appendChild(slide2);
     slide2.appendChild(img2);
 
     slidesBox.firstElementChild.id="lastClone";
     slidesBox.lastElementChild.id="firstClone";
-    slidesBox.firstElementChild.classList.add("current-slide");
+
     navButtonsBox.firstElementChild.classList.add("current-button");
     slides=Array.from(slidesBox.children);
     navButtons=Array.from(navButtonsBox.children);
@@ -132,18 +123,15 @@ let transInfo=document.querySelector(".trans-info");
 transInfo.innerText=coreData["transport"];
 
 }
-///////////////////////
+
 //////preparation//////
-//////////////////////
 let moveWay=slidesBox.getBoundingClientRect().width;
-console.log(slidesBox);
 console.log("moveWayOK");
 let index=1;
 slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
 
-////////////////////////////
+
 ///listen to next button///
-///////////////////////////
 let nextButton=document.querySelector(".next-button");
 nextButton.addEventListener("click",()=>{
     if(index<slides.length-1){
@@ -155,9 +143,7 @@ nextButton.addEventListener("click",()=>{
 })
 
 
-///////////////////////////////
 ///listen to previous button///
-///////////////////////////////
 let preButton=document.querySelector(".pre-button");
 preButton.addEventListener("click",()=>{
     if(index<=0) return;
@@ -168,17 +154,13 @@ preButton.addEventListener("click",()=>{
     })
 
 
-//////////////////////////////////
 //////listen to transtionend/////
-/////////////////////////////////
 slidesBox.addEventListener("transitionend",()=>{
     if(slides[index].id==="firstClone"){
-        console.log("here hi");
         index=1;
         slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
         slidesBox.style.transition="none";
         controlNavButton();
-
     }
     if(slides[index].id==="lastClone"){
         console.log("prebutton");
@@ -189,9 +171,8 @@ slidesBox.addEventListener("transitionend",()=>{
     }
 })
 
-///////////////////////////
+
 ////listen to nav button///
-//////////////////////////
 function changNavButton(){
     console.log("listen to change nav button");
     navButtons.forEach(button=>{

@@ -9,6 +9,7 @@ app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
+app.config['SECRET_KEY'] ="asdfghjkl"
 
 cfg=ConfigParser()
 cfg.read("db.ini")
@@ -113,6 +114,88 @@ def showAttraction(attractionId):
 		warning={"error": True,"message": "OOPS!系統出了點錯誤"}
 		return jsonify(warning),500
 	
+
+#以下新增user操作之Api
+@app.route("/api/user",methods=["GET"])
+def checkMemberStatus():
+	email=session.get("email")
+	if email==None:
+		data=None
+		print("會員未登入，session狀態:",email)
+		return jsonify({"data":data})
+	else:
+		sql="SELECT * FROM tourmember WHERE email=%s LIMIT %s"
+		val=(email,1,)
+		mycursor.execute(sql,val)
+		result=mycursor.fetchone()
+		data={"id":result[0],"name":result[1],"email":result[2]}
+		print("會員已登入，session狀態:",email)
+		return jsonify({"data":data})
+
+
+@app.route("/api/user",methods=["POST"])
+def signup():
+	requestData = request.get_json()
+	name=requestData["name"]
+	email=requestData["email"]
+	password=requestData["password"]
+	memberData=getMemberData(email)
+
+	if memberData==None:
+		sql="INSERT INTO tourmember (name,email,password) VALUES (%s,%s,%s)"
+		val=(name,email,password,)
+		mycursor.execute(sql,val)
+		mydb.commit()
+		print("email可註冊，並執行註冊完成")
+		session["email"]=email
+		return jsonify({"ok":True}),200
+	elif memberData!=None:
+		print("信箱已被註冊，阻擋註冊")
+		return jsonify({"error": True,"message": "Email已被註冊"}),400
+	else:
+		print("內部出錯")
+		return jsonify({"error": True,"message": "OOPS!網站出了點錯誤"}),500
+
+def getMemberData(email):
+	sql="SELECT * FROM tourmember WHERE email=%s LIMIT %s"
+	val=(email,1,)
+	mycursor.execute(sql,val)
+	result=mycursor.fetchone()
+	return result
+
+@app.route("/api/user",methods=["PATCH"])
+def signin():
+	requestData = request.get_json()
+	print("接收request body:",requestData)
+	email=requestData["email"]
+	password=requestData["password"]
+	identification=checkMemberData(email,password)
+	if identification==1:
+		session["email"]=email
+		print("有符合的會員資料，登入OK")
+		return jsonify({"ok":True}),200
+	elif identification==0:
+		print("無符合的會員資料，登入錯誤")
+		return jsonify({"error":True,"message":"帳號或密碼錯誤"}),400
+	else:
+		print("內部出錯")
+		return jsonify({"error":True,"message":"OOPS!網路出了點錯誤"}),500		
+
+def checkMemberData(email,password):
+	sql="SELECT COUNT(*) FROM tourmember WHERE email=%s AND password=%s LIMIT %s"
+	val=(email,password,1,)
+	mycursor.execute(sql,val)
+	result=mycursor.fetchone()
+	print ("確認符合會員比數:",result[0])
+	return result[0]
+
+@app.route("/api/user",methods=["DELETE"])
+def signout():
+	session.pop("email")
+	email=session.get("email")
+	print("已登出，目前session狀態:",email)
+	return jsonify({"ok": True})
+
 
 
 

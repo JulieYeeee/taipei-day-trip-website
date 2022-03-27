@@ -26,6 +26,7 @@ header {
     position: fixed;
     height: 54px;
     z-index: 10;
+    border-bottom: var(--lightgray) solid 1px;
     nav {
       width: 1200px;
       display: flex;
@@ -80,6 +81,8 @@ header {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    opacity: 0.5;
+    cursor: pointer;
   }
   .next-button {
     right: 0px;
@@ -89,14 +92,16 @@ header {
     bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
+
     .nav-button {
       width: 0.8rem;
       height: 0.8rem;
       border-radius: 50%;
-      border-color: var(--white);
+      border-color: var(--white) solid 1px;
       margin: 0 5px;
       background: var(--lightgray);
       opacity: 0.8;
+      cursor: pointer;
     }
     .current-button {
       background: var(--black);
@@ -113,6 +118,7 @@ main {
     padding-top: 54px;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 60px 0;
     .att-booking-zone {
       width: 45%;
       margin: 0.5rem;
@@ -147,6 +153,10 @@ main {
           background-color: var(--lightgray);
           padding-bottom: 10px;
           height: 100%;
+          .fees-zone {
+            display: flex;
+            flex-direction: row;
+          }
           .date {
             display: flex;
             flex-wrap: wrap;
@@ -197,7 +207,7 @@ main {
     .line {
       width: 95%;
       height: 1px;
-      margin: 1rem;
+      margin: 2rem 0 0 0;
       background: var(--lightgray);
     }
     .more-info {
@@ -293,7 +303,7 @@ footer {
           form {
             h4,
             p {
-              padding: 5px 0;
+              padding: 7px 0;
             }
             .booking-button {
               width: 40%;
