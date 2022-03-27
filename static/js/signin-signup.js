@@ -25,28 +25,12 @@ function showSignin(){
     let memberStatusBtn=document.querySelector(".member-status");
     memberStatusBtn.innerText="登入/註冊";
     console.log("顯示尚未登入");
-    if (pageName==="indexPage"){
-        fetchData(keyword,page);
-    }
-    if(pageName==="attPage"){
-        let passId=getId();
-        console.log("get id:"+passId);
-        fetchAttData(passId);
-    }
 }
 ///狀態已登入，顯示"登出系統"///
 function showSignout(){
     let memberStatusBtn=document.querySelector(".member-status");
     memberStatusBtn.innerText="登出系統";
     console.log("顯示已登入");
-    if (pageName==="indexPage"){
-        fetchData(keyword,page);
-    }
-    if(pageName==="attPage"){
-        let passId=getId();
-        console.log("get id:"+passId);
-        fetchAttData(passId);
-    }
 }
 
 

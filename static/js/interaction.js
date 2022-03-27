@@ -1,4 +1,3 @@
-let pageName="indexPage";
 let openData={};
 let keyword="";
 let page=0;
@@ -90,9 +89,10 @@ function errorMsg(openData,attractionsContainer){
 
 
 ////listen to load////
-let buffer=false;
+// let buffer=false;
 window.addEventListener("load",()=>{
     checkMemberStatus();
+    fetchData(keyword,page);
 });
 
 ////listen to scroll////

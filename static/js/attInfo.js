@@ -1,5 +1,3 @@
-let pageName="attPage";
-
 ////show touring guide fee////
 let morningTime=document.querySelector("input[id='morning']");
 morningTime.addEventListener("change",()=>{
@@ -15,7 +13,10 @@ afternoonTime.addEventListener("change",()=>{
 
 ////listen to load and fetch ////
 window.addEventListener("load",()=>{
-   checkMemberStatus();
+    checkMemberStatus();
+    let passId=getId();
+    console.log("get id:"+passId);
+    fetchAttData(passId);
 })
 
 //// get id of attraction////
