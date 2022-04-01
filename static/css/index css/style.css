@@ -55,8 +55,12 @@ header .nav-container nav {
           align-items: center;
 }
 
-header .nav-container nav .logo {
-  color: #448899;
+header .nav-container nav .logo-link {
+  text-decoration: none;
+}
+
+header .nav-container nav .logo-link .logo {
+  color: var(--green);
   font-size: 1.875rem;
 }
 
@@ -73,6 +77,10 @@ header .nav-container nav ul a {
   font-size: 1rem;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+header .nav-container nav ul a:hover {
+  color: var(--middlegray);
 }
 
 header .search-container {

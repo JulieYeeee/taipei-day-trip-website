@@ -32,9 +32,12 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .logo {
-        color: var(--green);
-        font-size: 1.875rem;
+      .logo-link {
+        text-decoration: none;
+        .logo {
+          color: var(--green);
+          font-size: 1.875rem;
+        }
       }
       ul {
         list-style: none;
@@ -45,6 +48,9 @@ header {
           font-size: 1rem;
           margin-left: 10px;
           margin-right: 10px;
+        }
+        a:hover {
+          color: var(--middlegray);
         }
       }
     }
@@ -162,6 +168,11 @@ main {
             flex-wrap: wrap;
             input {
               border-style: none;
+            }
+            .warning {
+              margin: 0 10px;
+              color: rgb(167, 23, 47);
+              font-size: 1rem;
             }
           }
           .time-radios {

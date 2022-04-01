@@ -28,15 +28,6 @@ mysqlPool = mysql.connector.pooling.MySQLConnectionPool(
 )
 
 
-# mydb = mysql.connector.connect(
-#   host="localhost",
-#   user=db_cfg["user"],
-#   password=db_cfg["psw"],
-#   database="website"
-# )
-# mycursor=mydb.cursor(buffered=True)
-
-
 @app.route("/")
 def index():
 	return render_template("index.html")
@@ -173,7 +164,7 @@ def signup():
 		val=(name,email,password,)
 		cursor.execute(sql,val)
 		# mydb.commit()
-		mysqlPool.commit()
+		connection.commit()
 		print("email可註冊，並執行註冊完成")
 		session["email"]=email
 		cursor.close()
@@ -234,6 +225,99 @@ def signout():
 	email=session.get("email")
 	print("已登出，目前session狀態:",email)
 	return jsonify({"ok": True})
+
+
+
+########api for booking process##########
+@app.route("/api/booking",methods=["GET"])
+def checkbooking():
+	if session.get("email"):
+		email=session.get("email")
+		print("會員:",email,"已登入，準備確認預定資料")
+		sql="SELECT * FROM booking WHERE account = %s LIMIT %s"
+		val=(email,1,)
+		connection=mysqlPool.get_connection()
+		cursor=connection.cursor(buffered=True)
+		cursor.execute(sql,val)
+		result=cursor.fetchone()
+		print("購物車資訊:",result)
+		cursor.close()
+		connection.close() 
+		if result:
+			attraction={"id":result[2],"name":result[3],"address":result[4],"image":result[8]}
+			data={"attraction":attraction,"date":result[5],"time":result[6],"price":result[7]} 
+			print("訂單內容:",data)
+			return jsonify({"data":data}),200
+		else:
+			print("訂單內容:",result)
+			return jsonify({"data":None}),200
+	else:
+		print("會員登入狀態:",session.get("email"))
+		return jsonify({"error":True,"message":"尚未登入會員"}),403
+
+
+@app.route("/api/booking",methods=["POST"])
+def order():
+	email=session.get("email")
+	if email:
+		requestData=request.get_json()
+		if requestData["attractionId"] and requestData["date"] and requestData["time"] and requestData["price"]:
+			#connect to connection pool
+			connection=mysqlPool.get_connection()
+			cursor=connection.cursor(buffered=True)
+			sql="SELECT COUNT(*) FROM booking WHERE account=%s LIMIT %s"
+			val=(email,1,)
+			cursor.execute(sql,val)
+			if cursor.fetchone():
+				print("正在清除資料")
+				delete(email)
+			attId=requestData["attractionId"]
+			print(attId)
+			#get info from attractions table
+			sql="SELECT * FROM attractions WHERE id=%s LIMIT %s"
+			val=(attId,1,)
+			cursor.execute(sql,val)
+			result=cursor.fetchone()
+			attName=result[2]
+			address=result[21]
+			file=result[15].split(",")[0]
+			#insert dato into booking table
+			sql="INSERT INTO booking (account,att_id,att_name,att_address,date,time,price,image) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
+			val=(email,attId,attName,address,requestData["date"],requestData["time"],requestData["price"],file,)
+			cursor.execute(sql,val)
+			connection.commit()
+			#return connection
+			cursor.close()
+			connection.close() 
+			print("已加入預定")
+			return jsonify({"ok":True}),200
+		else:
+			return jsonify({"error": True,"message": "訂單資訊不完整"}),400
+		
+	elif not session.get("email"):
+		return jsonify({"error": True,"message": "請登入會員"}),403
+	else:
+		return jsonify({"error": True,"message": "OOPS!網路出了錯誤"}),500
+
+
+@app.route("/api/booking",methods=["DELETE"])
+def cancelbooking():
+	email=session.get("email")
+	if email:
+		delete(email)
+		return jsonify({"ok": True}),200
+	else:
+		return jsonify({"error": True,"message": "尚未登入會員"}),403
+
+def delete(email):
+	sql="DELETE FROM booking WHERE account=%s LIMIT %s"
+	val=(email,1,)
+	connection=mysqlPool.get_connection()
+	cursor=connection.cursor(buffered=True)
+	cursor.execute(sql,val)
+	connection.commit()
+	cursor.close()
+	connection.close() 
 
 
 

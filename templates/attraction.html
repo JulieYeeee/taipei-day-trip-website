@@ -13,9 +13,9 @@
     <header>
         <div class="nav-container">
             <nav> 
-                <H1 class="logo">台北一日遊</H1>
+                <a href="/" class="logo-link"><H1 class="logo">台北一日遊</H1></a>
                 <ul class="menu">
-                    <li><a href="#">預定行程</a></li>
+                    <li><a href="#" class="go-booking">預定行程</a></li>
                     <li><a href="#" class="member-status">登入/註冊</a></li>
                 </ul>
             </nav>
@@ -44,23 +44,24 @@
                 </div>
             
                 <div class="booking">
-                    <form action="#">
+                    <form action="/booking">
                         <h4>訂購導覽行程</h4>
                         <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
                         <div class="date">
                             <h4>選擇日期：</h4>
-                            <input type="date">
+                            <input type="date" value="">
+                            <p class="warning"></p>
                         </div>
                         <div class="time-radios">
                             <h4>選擇時間：</h4>
                             <label for="morning">
-                                <input type="radio" name="booking-time" id="morning" class="radio-input" checked="checked">
+                                <input type="radio" name="booking-time" id="morning" class="radio-input" checked="checked" value="早上 10：00 - 12：00">
                                 <div id="morning" class="radio-div"></div> 
                                 <p>上半天</p>
                             </label>
                         
                             <label for="afternoon">
-                                <input type="radio" name="booking-time" id="afternoon" class="radio-input">
+                                <input type="radio" name="booking-time" id="afternoon" class="radio-input" value="下午 14：00 - 16：00">
                                 <div id="afternoon" class="radio-div"></div>
                                 <p>下半天</p>
                             </label>
