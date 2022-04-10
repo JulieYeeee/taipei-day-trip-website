@@ -1,23 +1,42 @@
-let pageName="attPage";
-
 ////show touring guide fee////
 let morningTime=document.querySelector("input[id='morning']");
 morningTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
     fees.innerText="新台幣 2000 元整";
+    fees.value="2000";
 })
 
 let afternoonTime=document.querySelector("input[id='afternoon']");
 afternoonTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
     fees.innerText="新台幣 2500 元整";
+    fees.value="2500";
 })
 
 ////listen to load and fetch ////
 window.addEventListener("load",()=>{
-   checkMemberStatus();
+    checkMemberStatus();
+    let passId=getId();
+    console.log("get id:"+passId);
+    fetchAttData(passId);
+    setDateLimit();
 })
 
+function setDateLimit(){
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    let yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    } 
+    if(mm<10){
+        mm='0'+mm;
+    } 
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.querySelector(".date input").setAttribute("min", today);
+}
 //// get id of attraction////
 function getId(){
     let url=window.location.href;
@@ -196,3 +215,78 @@ function controlNavButton(){
     currentButton.classList.remove("current-button");
 }
 
+
+
+let bookingBtn=document.querySelector(".booking-button");
+bookingBtn.addEventListener("click",e=>{
+    e.preventDefault();
+    let url=location.href;
+    let preId=url.substring(url.lastIndexOf('/') + 1).lastIndexOf("#");
+    let attractionId=0;
+    if(preId!=-1){
+        attractionId=url.substring(url.lastIndexOf('/') + 1,preId);
+        console.log(preId);
+    }
+    if(preId==-1){
+        attractionId=url.substring(url.lastIndexOf('/') + 1);
+        console.log(preId);
+    }
+    
+    let date=document.querySelector(".date input").value;
+    let time=document.querySelector(".time-radios input:checked").value;
+    let price=document.querySelector(".fees").innerText;
+    if(price=="新台幣 2000 元整"){
+        price=2000;
+    }
+    if(price=="新台幣 2500 元整"){
+        price=2500;
+    }  
+    let body={
+        "attractionId":attractionId,
+        "date":date,
+        "time":time,
+        "price":price
+    };
+
+     fetch("/api/booking",{
+         method:"POST",
+         headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(body),
+        })
+     .then(response=>{
+         res=response.json();
+         if(response.ok){
+             res.then(data=>{
+                window.location.replace("/booking");
+             })
+
+         }else if(response.status==400){
+            res.then(data=>{
+             warning(data);
+            })
+         }else{
+             res.then(data=>{
+                buildForm();
+             })
+         }
+    })
+    .catch(error=>{
+        warning(error);
+    })
+})
+
+function warning(data){
+    let warning=document.querySelector(".warning");
+    warning.innerText=data["message"];
+    listenToDate();
+}
+
+function listenToDate(){
+    let warning=document.querySelector(".warning");
+    let inputDate=document.querySelector(".date input");
+    inputDate.addEventListener("change",()=>{
+        warning.innerText="";
+    })
+}

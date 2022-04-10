@@ -1,0 +1,424 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 16px;
+}
+
+:root {
+  --deepgray: #666666;
+  --green: #448899;
+  --lightgray: #e8e8e8;
+  --middlegray: #cccccc;
+  --black: #000000;
+  --white: #ffffff;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.bodyheight{
+  height: 100vh;
+}
+
+header {
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--white);
+    position: fixed;
+    height: 54px;
+    z-index: 10;
+    border-bottom: var(--lightgray) solid 1px;
+    nav {
+      width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .logo-link {
+        text-decoration: none;
+        .logo {
+          color: var(--green);
+          font-size: 1.875rem;
+        }
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        a {
+          color: var(--deepgray);
+          text-decoration: none;
+          font-size: 1rem;
+          margin-left: 10px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        a:hover {
+          color: var(--middlegray);
+        }
+      }
+    }
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .response{
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  .booking-welcome {
+    padding: 35px 0;
+    margin: 50px 0 0 0;
+    width: 90%;
+    font-size: 1.1875rem;
+    color: var(--deepgray);
+  }
+  .message {
+    font-size: 1rem;
+    color: var(--deepgray);
+    font-weight: 300;
+    text-align: left;
+    padding: 0 0 50px 0;
+    width: 90%;
+  }
+}
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1200px;
+    // 分隔線設定
+    .bar {
+      width: 100%;
+      background: var(--lightgray);
+      height: 1px;
+      margin: 40px 0;
+    }
+    ///預約區塊1-景點資訊
+    .booking-att-info {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      .att {
+        width: 100%;
+        display: flex;
+        position: relative;
+        .booking-delete {
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          right: 0px;
+          cursor: pointer;
+          background: url("/static/images/icon_delete.png");
+        }
+        .booking-delete:hover {
+          opacity: 0.5;
+          transition: 0.5s;
+        }
+        .booking-img {
+          width: 25%;
+          height: 13rem;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .booking-att-text {
+          width: 75%;
+          padding: 0 0 0 30px;
+          display: flex;
+          flex-direction: column;
+          .att-name {
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1rem;
+            width: 100%;
+          }
+          .att-items {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--deepgray);
+            font-size: 1rem;
+            .item-box {
+              display: flex;
+              width: 100%;
+              .item {
+                font-weight: bold;
+                padding: 10px 0;
+              }
+              .item-content {
+                font-weight: 400;
+                padding: 10px 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+    ///預約區塊2-聯絡資訊
+    .booking-contact {
+      width: 90%;
+      color: var(--deepgray);
+      .contact-title {
+        font-size: 1.1875rem;
+        font-weight: bold;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        .contact-items {
+          font-weight: 400;
+        }
+        input {
+          width: 200px;
+          padding: 10px;
+          border: var(--lightgray) solid 1px;
+          border-radius: 5px;
+        }
+        .warning{
+          border-width:2px;
+          border-style: solid ;
+          border-color:#F54747;
+        }
+      }
+    }
+    ///預約區塊3-付款資訊
+    .payment {
+      width: 90%;
+      color: var(--deepgray);
+      label {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        .payment-items {
+          font-weight: 400;
+        }
+        input {
+          width: 200px;
+          padding: 10px;
+          border: var(--lightgray) solid 1px;
+          border-radius: 5px;
+        }
+      }
+    }
+    ///預約區塊4-金額確認
+    .booking-end {
+      width: 90%;
+      color: var(--deepgray);
+      position: relative;
+      padding: 0 0 5rem 0;
+      .total-fee {
+        width: 100%;
+        text-align: end;
+        font-weight: bold;
+        margin: 12.5px 0;
+      }
+      .booking-button {
+        position: absolute;
+        right: 0;
+        padding: 10px 20px;
+        margin: 12.5px 0;
+        background: var(--green);
+        color: var(--white);
+        font-size: 1.1875rem;
+        font-weight: 300;
+        border-radius: 5px;
+        border-style: none;
+      }
+      .booking-button:hover {
+        opacity: 0.5;
+        font-size: 1.15rem;
+        transition: 0.8s;
+      }
+    }
+  }
+}
+
+.form-hide {
+  display: none;
+}
+.mask-hide {
+  display: none;
+}
+
+footer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 104px;
+  background: var(--deepgray);
+  position: relative;
+  p{
+    position: absolute;
+    top: 0px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: bold;
+    padding:40px 0;
+  }  
+}
+
+.tpfield{
+  height:45.2px;
+  width: 200px;
+  border: 1px solid var(--lightgray);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+.paywarning{
+  border-width:2px;
+  border-style: solid ;
+  border-color:#F54747;
+}
+.tappay-field-focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+
+
+
+@media screen and(max-width:1199px) {
+  header {
+    .nav-container {
+      nav {
+        width: 95%;
+      }
+    }
+  }
+
+  main {
+.response{
+  width:90%;
+    .booking-welcome {
+      width: 90%;
+    }
+    .message {
+      width: 90%;
+    }
+  }
+    form {
+      width: 90%;
+      ///預約區塊1-景點資訊
+      .booking-att-info {
+        .att {
+          .booking-img {
+            width: 35%;
+            height: 14rem;
+          }
+          .booking-att-text {
+            width: 65%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width:600px) {
+  header {
+    .nav-container {
+      nav {
+        width: 95%;
+      }
+    }
+  }
+  main {
+    .response{
+      width: 95%;
+    .booking-welcome {
+      width: 95%;
+    }
+    .message {
+      width: 95%;
+    }
+  }
+    form {
+      ///預約區塊1-景點資訊
+      width: 95%;
+      .booking-att-info {
+        width: 95%;
+        .att {
+          flex-wrap: wrap;
+          .booking-delete {
+            bottom: -20px;
+          }
+          .booking-img {
+            width: 100%;
+            height: 20rem;
+          }
+          .booking-att-text {
+            width: 100%;
+            padding: 1rem 0 0 0;
+          }
+        }
+      }
+      ///預約區塊2-聯絡資訊
+      .booking-contact {
+        width: 95%;
+      }
+      ///預約區塊3-付款資訊
+      .payment {
+        width: 95%;
+      }
+      ///預約區塊4-金額確認
+      .booking-end {
+        width: 95%;
+      }
+    }
+  }
+}
+
+
+@media screen and(max-width:400px) {
+  header {
+    .nav-container {
+      nav {
+        width: 95%;
+      }
+    }
+  }
+  main {
+    width: auto;
+    form {
+      ///預約區塊1-景點資訊
+      .booking-att-info {
+        .att {
+          flex-wrap: wrap;
+          .booking-delete {
+            bottom: -20px;
+          }
+          .booking-img {
+            width: 100%;
+            height: 15rem;
+          }
+          .booking-att-text {
+            width: 100%;
+            padding: 1rem 0 0 0;
+          }
+        }
+      }
+    }
+  }
+}

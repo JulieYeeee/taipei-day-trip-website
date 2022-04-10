@@ -12,7 +12,7 @@ function checkMemberStatus(){
                     showSignin();
                 }
                 else{
-                    showSignout();
+                    showSignout(status);
                 }
             })
         }
@@ -25,28 +25,17 @@ function showSignin(){
     let memberStatusBtn=document.querySelector(".member-status");
     memberStatusBtn.innerText="登入/註冊";
     console.log("顯示尚未登入");
-    if (pageName==="indexPage"){
-        fetchData(keyword,page);
-    }
-    if(pageName==="attPage"){
-        let passId=getId();
-        console.log("get id:"+passId);
-        fetchAttData(passId);
-    }
 }
 ///狀態已登入，顯示"登出系統"///
-function showSignout(){
+function showSignout(status){
     let memberStatusBtn=document.querySelector(".member-status");
     memberStatusBtn.innerText="登出系統";
+    if (page=="booking"){
+        let username=status["data"]["name"];
+        let welcome=document.querySelector(".booking-welcome")
+        welcome.innerText=`你好，${username}，待預定的行程如下：`;
+    }
     console.log("顯示已登入");
-    if (pageName==="indexPage"){
-        fetchData(keyword,page);
-    }
-    if(pageName==="attPage"){
-        let passId=getId();
-        console.log("get id:"+passId);
-        fetchAttData(passId);
-    }
 }
 
 
@@ -117,7 +106,7 @@ function buildForm(){
 
     let inputEmail=document.createElement("input");
     inputEmail.className="input-email";
-    inputEmail.type="text";
+    inputEmail.type="email";
     inputEmail.placeholder="輸入信箱";
 
     let inputPassword=document.createElement("input");
@@ -299,3 +288,17 @@ function remind(msg,reminder){
     reminder.style.display="block";
     
 }
+
+
+let goBooking=document.querySelector(".go-booking");
+console.log(goBooking);
+goBooking.addEventListener("click",()=>{
+    let memberStatusBtn=document.querySelector(".member-status");
+    if (memberStatusBtn.innerText==="登入/註冊"){
+        buildForm();
+        console.log("complete building form");
+    }
+    if(memberStatusBtn.innerText==="登出系統"){
+        goBooking.href="/booking";
+    }
+})

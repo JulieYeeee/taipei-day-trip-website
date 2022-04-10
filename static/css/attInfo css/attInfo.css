@@ -48,7 +48,11 @@ header .nav-container nav {
           align-items: center;
 }
 
-header .nav-container nav .logo {
+header .nav-container nav .logo-link {
+  text-decoration: none;
+}
+
+header .nav-container nav .logo-link .logo {
   color: var(--green);
   font-size: 1.875rem;
 }
@@ -66,6 +70,11 @@ header .nav-container nav ul a {
   font-size: 1rem;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
+}
+
+header .nav-container nav ul a:hover {
+  color: var(--middlegray);
 }
 
 .image-container {
@@ -247,6 +256,12 @@ main .attraction-container .att-booking-zone .booking form .date {
 
 main .attraction-container .att-booking-zone .booking form .date input {
   border-style: none;
+}
+
+main .attraction-container .att-booking-zone .booking form .date .warning {
+  margin: 0 10px;
+  color: #a7172f;
+  font-size: 1rem;
 }
 
 main .attraction-container .att-booking-zone .booking form .time-radios {

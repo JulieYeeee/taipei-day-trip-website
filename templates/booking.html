@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/signin css/signin.css">
+    <link rel="stylesheet" href="/static/css/booking css/booking.css">
+    <title>Taipei Tour 台北一日遊</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav> 
+                <a href="/" class="logo-link"><H1 class="logo">台北一日遊</H1></a>
+                <ul class="menu">
+                    <li><a class="go-booking">預定行程</a></li>
+                    <li><a class="member-status">登入/註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="show">
+        <div class="response">
+            <h1 class="booking-welcome">預定行程確認中...</h1>
+        </div>
+        <form action="" class="form-hide" id="">
+        <div class="booking-att-info">
+            <!-- <div class="att">
+                <div class="booking-delete"></div>
+                <div class="booking-img">
+                    <img src="https://images.unsplash.com/photo-1648417359303-3519370cacd2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60" alt="">
+                </div>
+                <div class="booking-att-text">
+                    <h2 class="att-name">台北一日遊:平安遊</h2>
+                    <div class="att-items">
+                        <div class="item-box"><h2 class="item">日期:</h2><h2 class="item-content">2021-04-23</h2></div>   
+                        <div class="item-box"><h2 class="item">時間:</h2><h2 class="item-content">2021-04-23</h2></div>
+                        <div class="item-box"><h2 class="item">費用:</h2><h2 class="item-content">2021-04-23</h2></div>
+                        <div class="item-box"><h2 class="item">地點:</h2><h2 class="item-content">2021-04-23</h2></div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="bar"></div>
+        <div class="booking-contact">
+            <h1 class="contact-title">您的聯絡資訊</h1>
+            <label for="contact-name">
+                <h2 class="contact-items">聯絡姓名：</h2>
+                <input type="text" id="contact-name" name="contact-name">
+            </label>
+            <label for="contact-email">
+                <h2 class="contact-items">聯絡信箱：</h2>
+                <input type="text" id="contact-email" name="contact-email">
+            </label>
+            <label for="contact-number">
+                <h2 class="contact-items">手機號碼：</h2>
+                <input type="text" id="contact-number" name="contact-number">
+            </label>
+            <h2 class="contact-note">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</h2>
+        </div>
+        <div class="bar"></div>
+        <div class="payment">
+            <h1>信用卡付款資訊</h1>
+            <label for="payment-credit-card" class="card-number-group">
+                <h2 class="payment-items">卡片號碼：</h2>
+                <div class="tpfield" id="card-number"></div> 
+                <!-- <input type="number" id="payment-credit-card" name="payment-credit-card" placeholder="**** **** **** ****"> -->
+            </label>
+            <label for="payment-expired" class="expiration-date-group">
+                <h2 class="payment-items">過期時間：</h2>
+                <div class="tpfield" id="card-expiration-date"></div>
+                <!-- <input type="text" id="payment-expired" name="payment-expired" placeholder="MM/YY"> -->
+            </label>
+            <label for="payment-verification" class="cvc-group">
+                <h2 class="payment-items">驗證密碼：</h2>
+                <div class="tpfield" id="card-ccv"></div>
+                <!-- <input type="text" id="payment-verification" name="payment-verification" placeholder="CVV"> -->
+            </label>
+                       
+            
+        </div>
+        <div class="bar"></div>
+        <div class="booking-end">
+           <h2 class="total-fee">總價: 新台幣 0 元</h2>
+           <button type="submit" class="booking-button"  >確認訂購並付款</button> 
+        </div>
+    </form>
+    </main>
+    <footer>
+        <p>COPYRIGHT©2021台北一日遊</p>
+    </footer>
+    
+</body>
+<script src="/static/js/signin-signup.js"></script>
+<script src="/static/js/booking.js"></script>
+<script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
+<script src="/static/js/tappay.js"></script>
+<script>
+//     let APP_ID=123999;
+//     let APP_KEY="app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
+//     TPDirect.setupSDK(APP_ID, APP_KEY, 'sandbox');
+//     let fields={
+//         number: {
+//             // css selector
+//             element: '#card-number',
+//             placeholder: '**** **** **** ****'
+//         },
+//         expirationDate: {
+//             // DOM object
+//             element: document.getElementById('card-expiration-date'),
+//             placeholder: 'MM / YY'
+//         },
+//         ccv: {
+//             element: '#card-ccv',
+//             placeholder: 'ccv'
+//         }
+//     };
+//     TPDirect.card.setup({
+//         fields: fields,
+//         styles: {
+//         // Style all elements
+//         'input': {
+//             'color': 'gray'
+//         },
+//         // Styling ccv field
+//         'input.ccv': {
+//             'font-size': '1rem'
+//         },
+//         // Styling expiration-date field
+//         'input.expiration-date': {
+//             'font-size': '1rem'
+//         },
+//         // Styling card-number field
+//         'input.card-number': {
+//             'font-size': '1rem'
+//         },
+//         // style focus state
+//         ':focus': {
+//             'color': 'black'
+//         },
+//         // style valid state
+//         '.valid': {
+//             'color': 'green'
+//         },
+//         // style invalid state
+//         '.invalid': {
+//             'color': 'red'
+//         },
+//         // Media queries
+//         // Note that these apply to the iframe, not the root window.
+//         '@media screen and (max-width: 400px)': {
+//             'input': {
+//                 'color': 'orange'
+//             }
+//         }
+//     }
+// });
+// TPDirect.card.onUpdate(function (update) {
+//     // update.canGetPrime === true
+//     // --> you can call TPDirect.card.getPrime()
+//     if (update.canGetPrime) {
+//         // Enable submit Button to get prime.
+//         submitButton.removeAttribute('disabled')
+//     } else {
+//         // Disable submit Button to get prime.
+//         submitButton.setAttribute('disabled', true)
+//     }
+
+//     cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unionpay','unknown'];
+//     if (update.cardType === 'visa') {
+//         // Handle card type visa.
+//     }
+
+//     // number 欄位是錯誤的
+//     if (update.status.number === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.number === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+
+//     if (update.status.expiry === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.expiry === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+
+//     if (update.status.ccv === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.ccv === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+// });
+
+// TPDirect.card.getTappayFieldsStatus()
+
+
+</script>
+
+</html>

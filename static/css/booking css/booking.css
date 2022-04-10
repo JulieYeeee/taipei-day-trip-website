@@ -1,0 +1,505 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 16px;
+}
+
+:root {
+  --deepgray: #666666;
+  --green: #448899;
+  --lightgray: #e8e8e8;
+  --middlegray: #cccccc;
+  --black: #000000;
+  --white: #ffffff;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+
+.bodyheight {
+  height: 100vh;
+}
+
+header .nav-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  background-color: var(--white);
+  position: fixed;
+  height: 54px;
+  z-index: 10;
+  border-bottom: var(--lightgray) solid 1px;
+}
+
+header .nav-container nav {
+  width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .nav-container nav .logo-link {
+  text-decoration: none;
+}
+
+header .nav-container nav .logo-link .logo {
+  color: var(--green);
+  font-size: 1.875rem;
+}
+
+header .nav-container nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .nav-container nav ul a {
+  color: var(--deepgray);
+  text-decoration: none;
+  font-size: 1rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+header .nav-container nav ul a:hover {
+  color: var(--middlegray);
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+main .response {
+  width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .response .booking-welcome {
+  padding: 35px 0;
+  margin: 50px 0 0 0;
+  width: 90%;
+  font-size: 1.1875rem;
+  color: var(--deepgray);
+}
+
+main .response .message {
+  font-size: 1rem;
+  color: var(--deepgray);
+  font-weight: 300;
+  text-align: left;
+  padding: 0 0 50px 0;
+  width: 90%;
+}
+
+main form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 1200px;
+}
+
+main form .bar {
+  width: 100%;
+  background: var(--lightgray);
+  height: 1px;
+  margin: 40px 0;
+}
+
+main form .booking-att-info {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main form .booking-att-info .att {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+main form .booking-att-info .att .booking-delete {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  cursor: pointer;
+  background: url("/static/images/icon_delete.png");
+}
+
+main form .booking-att-info .att .booking-delete:hover {
+  opacity: 0.5;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+main form .booking-att-info .att .booking-img {
+  width: 25%;
+  height: 13rem;
+  overflow: hidden;
+}
+
+main form .booking-att-info .att .booking-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+main form .booking-att-info .att .booking-att-text {
+  width: 75%;
+  padding: 0 0 0 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main form .booking-att-info .att .booking-att-text .att-name {
+  color: var(--green);
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+}
+
+main form .booking-att-info .att .booking-att-text .att-items {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--deepgray);
+  font-size: 1rem;
+}
+
+main form .booking-att-info .att .booking-att-text .att-items .item-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+main form .booking-att-info .att .booking-att-text .att-items .item-box .item {
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+main form .booking-att-info .att .booking-att-text .att-items .item-box .item-content {
+  font-weight: 400;
+  padding: 10px 5px;
+}
+
+main form .booking-contact {
+  width: 90%;
+  color: var(--deepgray);
+}
+
+main form .booking-contact .contact-title {
+  font-size: 1.1875rem;
+  font-weight: bold;
+}
+
+main form .booking-contact label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+}
+
+main form .booking-contact label .contact-items {
+  font-weight: 400;
+}
+
+main form .booking-contact label input {
+  width: 200px;
+  padding: 10px;
+  border: var(--lightgray) solid 1px;
+  border-radius: 5px;
+}
+
+main form .booking-contact label .warning {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #F54747;
+}
+
+main form .payment {
+  width: 90%;
+  color: var(--deepgray);
+}
+
+main form .payment label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+}
+
+main form .payment label .payment-items {
+  font-weight: 400;
+}
+
+main form .payment label input {
+  width: 200px;
+  padding: 10px;
+  border: var(--lightgray) solid 1px;
+  border-radius: 5px;
+}
+
+main form .booking-end {
+  width: 90%;
+  color: var(--deepgray);
+  position: relative;
+  padding: 0 0 5rem 0;
+}
+
+main form .booking-end .total-fee {
+  width: 100%;
+  text-align: end;
+  font-weight: bold;
+  margin: 12.5px 0;
+}
+
+main form .booking-end .booking-button {
+  position: absolute;
+  right: 0;
+  padding: 10px 20px;
+  margin: 12.5px 0;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.1875rem;
+  font-weight: 300;
+  border-radius: 5px;
+  border-style: none;
+}
+
+main form .booking-end .booking-button:hover {
+  opacity: 0.5;
+  font-size: 1.15rem;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.form-hide {
+  display: none;
+}
+
+.mask-hide {
+  display: none;
+}
+
+footer {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 104px;
+  background: var(--deepgray);
+  position: relative;
+}
+
+footer p {
+  position: absolute;
+  top: 0px;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 40px 0;
+}
+
+.tpfield {
+  height: 45.2px;
+  width: 200px;
+  border: 1px solid var(--lightgray);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.paywarning {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #F54747;
+}
+
+.tappay-field-focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+@media screen and (max-width: 1199px) {
+  header .nav-container nav {
+    width: 95%;
+  }
+  main .response {
+    width: 90%;
+  }
+  main .response .booking-welcome {
+    width: 90%;
+  }
+  main .response .message {
+    width: 90%;
+  }
+  main form {
+    width: 90%;
+  }
+  main form .booking-att-info .att .booking-img {
+    width: 35%;
+    height: 14rem;
+  }
+  main form .booking-att-info .att .booking-att-text {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header .nav-container nav {
+    width: 95%;
+  }
+  main .response {
+    width: 95%;
+  }
+  main .response .booking-welcome {
+    width: 95%;
+  }
+  main .response .message {
+    width: 95%;
+  }
+  main form {
+    width: 95%;
+  }
+  main form .booking-att-info {
+    width: 95%;
+  }
+  main form .booking-att-info .att {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  main form .booking-att-info .att .booking-delete {
+    bottom: -20px;
+  }
+  main form .booking-att-info .att .booking-img {
+    width: 100%;
+    height: 20rem;
+  }
+  main form .booking-att-info .att .booking-att-text {
+    width: 100%;
+    padding: 1rem 0 0 0;
+  }
+  main form .booking-contact {
+    width: 95%;
+  }
+  main form .payment {
+    width: 95%;
+  }
+  main form .booking-end {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  header .nav-container nav {
+    width: 95%;
+  }
+  main {
+    width: auto;
+  }
+  main form .booking-att-info .att {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  main form .booking-att-info .att .booking-delete {
+    bottom: -20px;
+  }
+  main form .booking-att-info .att .booking-img {
+    width: 100%;
+    height: 15rem;
+  }
+  main form .booking-att-info .att .booking-att-text {
+    width: 100%;
+    padding: 1rem 0 0 0;
+  }
+}
+/*# sourceMappingURL=booking.css.map */
