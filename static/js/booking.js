@@ -1,12 +1,13 @@
 let page="booking";
-let price=0;
+let price=0; 
+let bookingInfo={};
 
 window.addEventListener("load",()=>{
-    checkBooking();
     checkMemberStatus();
+    checkBooking();
 })
 
-///if user access booking page directly,check signin status and respond////
+///if user access booking page directly,check signin status and respond///
 function checkBooking(){
     fetch("/api/booking",{method:"GET"})
     .then(response=>{
@@ -27,6 +28,7 @@ function checkBooking(){
 function showOrder(data){
     ///if booking data exist,show them up///
     if(data["data"]!=null){
+        bookingInfo=data["data"];
         //show order form
         let form=document.querySelector("form");
         form.classList.remove("form-hide");
@@ -77,8 +79,8 @@ function showOrder(data){
         listenToDelete();
         sum();
     }else{ ///if booking data doesnt exist,show reminder message up///
-        console.log("目前沒有任何待預定的行程")
-        let responseDiv=document.querySelector(".response")
+        console.log("目前沒有任何待預定的行程");
+        let responseDiv=document.querySelector(".response");
         let message=buildItem("h2","message");
         let body=document.querySelector("body");
         body.className="bodyheight";
@@ -103,7 +105,7 @@ function fillContent(data,img,attName,itemContent1,itemContent2,itemContent3,ite
     attName.innerText=data["data"]["attraction"]["name"];
     itemContent1.innerText=mydate;
     itemContent2.innerText=data["data"]["time"];
-    itemContent3.innerText=data["data"]["price"];
+    itemContent3.innerText="新台幣 "+data["data"]["price"]+" 元整";
     itemContent4.innerText=data["data"]["attraction"]["address"];
 }
 ////function for calculate total fee////
@@ -118,7 +120,7 @@ function sum(){
         }
     })
     let totalFee=document.querySelector(".total-fee");
-    totalFee.innerText=`總價： ${price} 新台幣`;
+    totalFee.innerText=`總價：新台幣 ${price} 元`;
 }
 
 
@@ -155,4 +157,5 @@ function cleanPage(){
     }
 
 }
+
 

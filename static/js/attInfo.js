@@ -3,12 +3,14 @@ let morningTime=document.querySelector("input[id='morning']");
 morningTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
     fees.innerText="新台幣 2000 元整";
+    fees.value="2000";
 })
 
 let afternoonTime=document.querySelector("input[id='afternoon']");
 afternoonTime.addEventListener("change",()=>{
     let fees=document.querySelector(".fees");
     fees.innerText="新台幣 2500 元整";
+    fees.value="2500";
 })
 
 ////listen to load and fetch ////
@@ -233,6 +235,12 @@ bookingBtn.addEventListener("click",e=>{
     let date=document.querySelector(".date input").value;
     let time=document.querySelector(".time-radios input:checked").value;
     let price=document.querySelector(".fees").innerText;
+    if(price=="新台幣 2000 元整"){
+        price=2000;
+    }
+    if(price=="新台幣 2500 元整"){
+        price=2500;
+    }  
     let body={
         "attractionId":attractionId,
         "date":date,
@@ -251,7 +259,6 @@ bookingBtn.addEventListener("click",e=>{
          res=response.json();
          if(response.ok){
              res.then(data=>{
-                // return data;
                 window.location.replace("/booking");
              })
 

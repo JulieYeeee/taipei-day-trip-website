@@ -14,8 +14,8 @@
             <nav> 
                 <a href="/" class="logo-link"><H1 class="logo">台北一日遊</H1></a>
                 <ul class="menu">
-                    <li><a href="#" class="go-booking">預定行程</a></li>
-                    <li><a href="#" class="member-status">登入/註冊</a></li>
+                    <li><a class="go-booking">預定行程</a></li>
+                    <li><a class="member-status">登入/註冊</a></li>
                 </ul>
             </nav>
         </div>
@@ -24,7 +24,7 @@
         <div class="response">
             <h1 class="booking-welcome">預定行程確認中...</h1>
         </div>
-        <form action="" class="form-hide">
+        <form action="" class="form-hide" id="">
         <div class="booking-att-info">
             <!-- <div class="att">
                 <div class="booking-delete"></div>
@@ -62,23 +62,28 @@
         <div class="bar"></div>
         <div class="payment">
             <h1>信用卡付款資訊</h1>
-            <label for="payment-credit-card">
+            <label for="payment-credit-card" class="card-number-group">
                 <h2 class="payment-items">卡片號碼：</h2>
-                <input type="number" id="payment-credit-card" name="payment-credit-card" placeholder="**** **** **** ****">
+                <div class="tpfield" id="card-number"></div> 
+                <!-- <input type="number" id="payment-credit-card" name="payment-credit-card" placeholder="**** **** **** ****"> -->
             </label>
-            <label for="payment-expired">
+            <label for="payment-expired" class="expiration-date-group">
                 <h2 class="payment-items">過期時間：</h2>
-                <input type="text" id="payment-expired" name="payment-expired" placeholder="MM/YY">
+                <div class="tpfield" id="card-expiration-date"></div>
+                <!-- <input type="text" id="payment-expired" name="payment-expired" placeholder="MM/YY"> -->
             </label>
-            <label for="payment-verification">
+            <label for="payment-verification" class="cvc-group">
                 <h2 class="payment-items">驗證密碼：</h2>
-                <input type="text" id="payment-verification" name="payment-verification" placeholder="CVV">
+                <div class="tpfield" id="card-ccv"></div>
+                <!-- <input type="text" id="payment-verification" name="payment-verification" placeholder="CVV"> -->
             </label>
+                       
+            
         </div>
         <div class="bar"></div>
         <div class="booking-end">
            <h2 class="total-fee">總價: 新台幣 0 元</h2>
-           <button type="submit" class="booking-button">確認訂購並付款</button> 
+           <button type="submit" class="booking-button"  >確認訂購並付款</button> 
         </div>
     </form>
     </main>
@@ -89,4 +94,113 @@
 </body>
 <script src="/static/js/signin-signup.js"></script>
 <script src="/static/js/booking.js"></script>
+<script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
+<script src="/static/js/tappay.js"></script>
+<script>
+//     let APP_ID=123999;
+//     let APP_KEY="app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
+//     TPDirect.setupSDK(APP_ID, APP_KEY, 'sandbox');
+//     let fields={
+//         number: {
+//             // css selector
+//             element: '#card-number',
+//             placeholder: '**** **** **** ****'
+//         },
+//         expirationDate: {
+//             // DOM object
+//             element: document.getElementById('card-expiration-date'),
+//             placeholder: 'MM / YY'
+//         },
+//         ccv: {
+//             element: '#card-ccv',
+//             placeholder: 'ccv'
+//         }
+//     };
+//     TPDirect.card.setup({
+//         fields: fields,
+//         styles: {
+//         // Style all elements
+//         'input': {
+//             'color': 'gray'
+//         },
+//         // Styling ccv field
+//         'input.ccv': {
+//             'font-size': '1rem'
+//         },
+//         // Styling expiration-date field
+//         'input.expiration-date': {
+//             'font-size': '1rem'
+//         },
+//         // Styling card-number field
+//         'input.card-number': {
+//             'font-size': '1rem'
+//         },
+//         // style focus state
+//         ':focus': {
+//             'color': 'black'
+//         },
+//         // style valid state
+//         '.valid': {
+//             'color': 'green'
+//         },
+//         // style invalid state
+//         '.invalid': {
+//             'color': 'red'
+//         },
+//         // Media queries
+//         // Note that these apply to the iframe, not the root window.
+//         '@media screen and (max-width: 400px)': {
+//             'input': {
+//                 'color': 'orange'
+//             }
+//         }
+//     }
+// });
+// TPDirect.card.onUpdate(function (update) {
+//     // update.canGetPrime === true
+//     // --> you can call TPDirect.card.getPrime()
+//     if (update.canGetPrime) {
+//         // Enable submit Button to get prime.
+//         submitButton.removeAttribute('disabled')
+//     } else {
+//         // Disable submit Button to get prime.
+//         submitButton.setAttribute('disabled', true)
+//     }
+
+//     cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unionpay','unknown'];
+//     if (update.cardType === 'visa') {
+//         // Handle card type visa.
+//     }
+
+//     // number 欄位是錯誤的
+//     if (update.status.number === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.number === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+
+//     if (update.status.expiry === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.expiry === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+
+//     if (update.status.ccv === 2) {
+//         setNumberFormGroupToError()
+//     } else if (update.status.ccv === 0) {
+//         setNumberFormGroupToSuccess()
+//     } else {
+//         setNumberFormGroupToNormal()
+//     }
+// });
+
+// TPDirect.card.getTappayFieldsStatus()
+
+
+</script>
+
 </html>

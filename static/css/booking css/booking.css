@@ -85,6 +85,7 @@ header .nav-container nav ul a {
   font-size: 1rem;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 header .nav-container nav ul a:hover {
@@ -287,6 +288,12 @@ main form .booking-contact label input {
   border-radius: 5px;
 }
 
+main form .booking-contact label .warning {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #F54747;
+}
+
 main form .payment {
   width: 90%;
   color: var(--deepgray);
@@ -378,6 +385,28 @@ footer p {
   font-size: 1rem;
   font-weight: bold;
   padding: 40px 0;
+}
+
+.tpfield {
+  height: 45.2px;
+  width: 200px;
+  border: 1px solid var(--lightgray);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.paywarning {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #F54747;
+}
+
+.tappay-field-focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 @media screen and (max-width: 1199px) {

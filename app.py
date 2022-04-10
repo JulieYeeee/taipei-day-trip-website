@@ -1,10 +1,13 @@
 
+from xml.dom.expatbuilder import FragmentBuilderNS
 from flask import *
 from flask import make_response
 import mysql.connector
 from mysql.connector.pooling import MySQLConnectionPool
 import math
 from configparser import ConfigParser
+import requests
+import time
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -234,8 +237,8 @@ def checkbooking():
 	if session.get("email"):
 		email=session.get("email")
 		print("會員:",email,"已登入，準備確認預定資料")
-		sql="SELECT * FROM booking WHERE account = %s LIMIT %s"
-		val=(email,1,)
+		sql="SELECT * FROM booking WHERE account = %s AND status=%s LIMIT %s"
+		val=(email,0,1,)
 		connection=mysqlPool.get_connection()
 		cursor=connection.cursor(buffered=True)
 		cursor.execute(sql,val)
@@ -246,7 +249,7 @@ def checkbooking():
 		if result:
 			attraction={"id":result[2],"name":result[3],"address":result[4],"image":result[8]}
 			data={"attraction":attraction,"date":result[5],"time":result[6],"price":result[7]} 
-			print("訂單內容:",data)
+			print("訂單內容:",data,"付款狀態:",result[9])
 			return jsonify({"data":data}),200
 		else:
 			print("訂單內容:",result)
@@ -265,14 +268,13 @@ def order():
 			#connect to connection pool
 			connection=mysqlPool.get_connection()
 			cursor=connection.cursor(buffered=True)
-			sql="SELECT COUNT(*) FROM booking WHERE account=%s LIMIT %s"
-			val=(email,1,)
+			sql="SELECT COUNT(*) FROM booking WHERE account=%s AND status=%s LIMIT %s"
+			val=(email,0,1,)
 			cursor.execute(sql,val)
 			if cursor.fetchone():
 				print("正在清除資料")
 				delete(email)
 			attId=requestData["attractionId"]
-			print(attId)
 			#get info from attractions table
 			sql="SELECT * FROM attractions WHERE id=%s LIMIT %s"
 			val=(attId,1,)
@@ -282,8 +284,8 @@ def order():
 			address=result[21]
 			file=result[15].split(",")[0]
 			#insert dato into booking table
-			sql="INSERT INTO booking (account,att_id,att_name,att_address,date,time,price,image) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
-			val=(email,attId,attName,address,requestData["date"],requestData["time"],requestData["price"],file,)
+			sql="INSERT INTO booking (account,att_id,att_name,att_address,date,time,price,image,status) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+			val=(email,attId,attName,address,requestData["date"],requestData["time"],requestData["price"],file,0,)
 			cursor.execute(sql,val)
 			connection.commit()
 			#return connection
@@ -310,8 +312,8 @@ def cancelbooking():
 		return jsonify({"error": True,"message": "尚未登入會員"}),403
 
 def delete(email):
-	sql="DELETE FROM booking WHERE account=%s LIMIT %s"
-	val=(email,1,)
+	sql="DELETE FROM booking WHERE account=%s AND status=%s LIMIT %s"
+	val=(email,0,1,)
 	connection=mysqlPool.get_connection()
 	cursor=connection.cursor(buffered=True)
 	cursor.execute(sql,val)
@@ -320,7 +322,159 @@ def delete(email):
 	connection.close() 
 
 
+########api for order and payment process##########
+@app.route("/api/orders",methods=["POST"])
+def payOrder():
+	#check member has logged in or not
+	email=session.get("email")
+	if email:
+		#request json data from front-end
+		orderInfo=request.get_json()
+		#when user try to pay order,build an order data in orderlist table in DB
+		##0.open connection pool
+		connection=mysqlPool.get_connection()
+		cursor=connection.cursor(buffered=True)
+		##1.build order number: booking date + member id
+		sql="SELECT id FROM tourmember WHERE email=%s LIMIT %s"
+		val=(email,1,)
+		cursor.execute(sql,val)
+		memberId=cursor.fetchone()[0]
+		orderNum= str(time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())))[-4:]+ str(time.time()).replace('.', '')[-3:]+str(memberId)
+		##2.get part of order info from request body
+		bookingName=orderInfo["order"]["contact"]["name"]
+		bookingEmail=orderInfo["order"]["contact"]["email"]
+		bookingPhone=orderInfo["order"]["contact"]["phone"]
+		attName=orderInfo["order"]["trip"]["attraction"]["name"]
+		##3.get booking id from booking table in DB
+		sql="SELECT id FROM booking WHERE account=%s AND att_name=%s"
+		val=(email,attName,)
+		cursor.execute(sql,val)
+		bookingId=cursor.fetchone()[0]
+		##4.insert order info into orderlist table in DB
+		sql="INSERT INTO orderlist VALUE (%s,%s,%s,%s,%s,%s,%s)"
+		val=(email,orderNum,0,bookingId,bookingName,bookingEmail,bookingPhone,)
+		cursor.execute(sql,val)
+		connection.commit()
+		##5.return conntection
+		cursor.close()
+		connection.close() 
+		# preparing request json data to TapPay server
+		partnerKey="partner_RxqtAj9N3juu6kDlJU87Nzpqlizth6moQIsozJgrUwe9bVLHf43tPvTR"
+		merchantId="oopsyeh056_CTBC"
+		paymentInfo={
+			"prime": orderInfo["prime"],
+			"partner_key": partnerKey,
+			"merchant_id": merchantId,
+			"amount": orderInfo["order"]["price"],
+			"currency": "TWD",
+			"details":"TapPay Test",		
+			"cardholder": {
+				"phone_number":orderInfo["order"]["contact"]["phone"],
+				"name": orderInfo["order"]["contact"]["name"],
+				"email": orderInfo["order"]["contact"]["email"],
+				"zip_code": "",
+				"address": "",
+				"national_id": ""
+				},
+			}
+		tappayApi="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
+		headers={ 
+			"Content-Type": "application/json",
+			"x-api-key": partnerKey
+			} 
+		# send request to TapPay server		
+		paymentRequest=requests.post(tappayApi,headers=headers,data=json.dumps(paymentInfo).encode('utf-8')) #json dumps is point
+		# response from TapPay server
+		tappayRes=json.loads(paymentRequest.text) #json loads is point
+		print("付款狀態: ",tappayRes["status"])
+		#if pay order successfully, update payment status in orderlist and delete booking data in booking table
+		if tappayRes["status"]==0:
+			#0.open connection
+			connection=mysqlPool.get_connection()
+			cursor=connection.cursor(buffered=True)
+			#1.update payment status in orderlist table in DB
+			sql="UPDATE orderlist SET payment_status=%s WHERE order_number=%s LIMIT %s"
+			val=(1,orderNum,1,)
+			cursor.execute(sql,val)
+			connection.commit()
+			#2.update status from 0 to 1 in booking table in DB
+			sql="UPDATE booking SET status=%s WHERE id=%s LIMIT %s"
+			val=(1,bookingId,1,)
+			cursor.execute(sql,val)
+			connection.commit()
+			#3.return conntection
+			cursor.close()
+			connection.close() 
+			#return success response
+			response={
+					"number": orderNum,
+					"payment": {
+						"status": 0,
+						"message": "付款成功"
+					}
+			}
+			return jsonify({"data":response}),200
+		elif tappayRes["status"]!=0:
+			print("付款錯誤:",tappayRes["status"])
+			return jsonify({"error": True,"message": "付款失敗"}),400
+		else:
+			print("內部出錯")
+			return jsonify({"error": True,"message": "OOPS!網站出了點差錯"}),500
+	else:
+		print("尚未登入會員")
+		return jsonify({"error": True,"message": "尚未登入會員"}),403		
 
+
+@app.route("/api/order/<orderNumber>",methods=["GET"])
+def checkOrderStatus(orderNumber):
+	print(orderNumber)
+	email=session.get("email")
+	if email:
+		#0.open connection
+		connection=mysqlPool.get_connection()
+		cursor=connection.cursor(buffered=True)
+		#1.get final order data 
+		sql="SELECT * FROM orderlist WHERE order_number=%s LIMIT %s"
+		val=(orderNumber,1,)
+		cursor.execute(sql,val)
+		orderData=cursor.fetchone()
+		#2.check data being exixsted or not 
+		if orderData:
+			#3.get booking data for response
+			bookingId=orderData[3]
+			sql="SELECT * FROM booking WHERE id=%s LIMIT %s"
+			val=(bookingId,1,)
+			cursor.execute(sql,val)
+			bookingData=cursor.fetchone()
+			#4.return conntection
+			cursor.close()
+			connection.close() 
+			#data for response
+			data={
+				"number": orderData[1],
+				"price": bookingData[7],
+				"trip": {
+				"attraction": {
+					"id": bookingData[2],
+					"name": bookingData[3],
+					"address": bookingData[4],
+					"image": bookingData[8]
+				},
+				"date": str(bookingData[5]),
+				"time": bookingData[6]
+				},
+				"contact": {
+				"name": orderData[4],
+				"email": orderData[5],
+				"phone": orderData[6]
+				},
+				"status": orderData[2]
+			}
+			return jsonify({"data":data}),200
+		else:
+			return jsonify({"data":None}),200	
+	else:
+		return jsonify({"error": True,"message": "尚未登入會員"}),403
 
 if __name__ == "__main__":
 	app.debug = True

@@ -70,6 +70,7 @@ header .nav-container nav ul a {
   font-size: 1rem;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 header .nav-container nav ul a:hover {
