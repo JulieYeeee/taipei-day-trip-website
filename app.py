@@ -1,5 +1,3 @@
-
-from xml.dom.expatbuilder import FragmentBuilderNS
 from flask import *
 from flask import make_response
 import mysql.connector
@@ -8,6 +6,10 @@ import math
 from configparser import ConfigParser
 import requests
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # take environment variables from .env.
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -23,9 +25,9 @@ db_cfg=dict(cfg.items("logindata"))
 mysqlPool = mysql.connector.pooling.MySQLConnectionPool(
 	pool_name="taipeitour",
 	pool_reset_session=True,
-    host="localhost",     
-    user=db_cfg["user"],      
-    passwd=db_cfg["psw"],      
+    host="localhost",         
+	user=os.getenv("dbUser"),      
+    passwd=os.getenv("dbPsw"),    
     database='website',
     pool_size= 5
 )
@@ -166,7 +168,6 @@ def signup():
 		sql="INSERT INTO tourmember (name,email,password) VALUES (%s,%s,%s)"
 		val=(name,email,password,)
 		cursor.execute(sql,val)
-		# mydb.commit()
 		connection.commit()
 		print("email可註冊，並執行註冊完成")
 		session["email"]=email
@@ -283,7 +284,7 @@ def order():
 			attName=result[2]
 			address=result[21]
 			file=result[15].split(",")[0]
-			#insert dato into booking table
+			#insert data into booking table
 			sql="INSERT INTO booking (account,att_id,att_name,att_address,date,time,price,image,status) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 			val=(email,attId,attName,address,requestData["date"],requestData["time"],requestData["price"],file,0,)
 			cursor.execute(sql,val)
@@ -296,8 +297,8 @@ def order():
 		else:
 			return jsonify({"error": True,"message": "訂單資訊不完整"}),400
 		
-	elif not session.get("email"):
-		return jsonify({"error": True,"message": "請登入會員"}),403
+	elif not email:
+		return jsonify({"error": True,"message": "尚未登入會員"}),403
 	else:
 		return jsonify({"error": True,"message": "OOPS!網路出了錯誤"}),500
 
@@ -359,8 +360,8 @@ def payOrder():
 		cursor.close()
 		connection.close() 
 		# preparing request json data to TapPay server
-		partnerKey="partner_RxqtAj9N3juu6kDlJU87Nzpqlizth6moQIsozJgrUwe9bVLHf43tPvTR"
-		merchantId="oopsyeh056_CTBC"
+		partnerKey=os.getenv("partnerKey")
+		merchantId=os.getenv("merchantId")
 		paymentInfo={
 			"prime": orderInfo["prime"],
 			"partner_key": partnerKey,
@@ -387,7 +388,7 @@ def payOrder():
 		# response from TapPay server
 		tappayRes=json.loads(paymentRequest.text) #json loads is point
 		print("付款狀態: ",tappayRes["status"])
-		#if pay order successfully, update payment status in orderlist and delete booking data in booking table
+		#if pay order successfully, update payment status in orderlist and booking data in booking table
 		if tappayRes["status"]==0:
 			#0.open connection
 			connection=mysqlPool.get_connection()
