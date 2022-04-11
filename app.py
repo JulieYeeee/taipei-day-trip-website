@@ -3,7 +3,6 @@ from flask import make_response
 import mysql.connector
 from mysql.connector.pooling import MySQLConnectionPool
 import math
-from configparser import ConfigParser
 import requests
 import time
 from dotenv import load_dotenv
@@ -17,9 +16,6 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
 app.config['SECRET_KEY'] ="asdfghjkl"
 
-cfg=ConfigParser()
-cfg.read("db.ini")
-db_cfg=dict(cfg.items("logindata"))
 
 #connection pool
 mysqlPool = mysql.connector.pooling.MySQLConnectionPool(
