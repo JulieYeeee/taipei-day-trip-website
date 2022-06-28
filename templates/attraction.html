@@ -23,6 +23,9 @@
     </header>
     <main>
         <div class="attraction-container">
+            <div class="loader-cover">
+                <div class="loader"></div>
+            </div>
             <!-- carousel function -->
             <div class="image-container">
                 <div class="slides-box">
@@ -49,13 +52,13 @@
                         <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
                         <div class="date">
                             <h4>選擇日期：</h4>
-                            <input type="date" value="">
+                            <input class="input-date" type="date" value="">
                             <p class="warning"></p>
                         </div>
                         <div class="time-radios">
                             <h4>選擇時間：</h4>
                             <label for="morning">
-                                <input type="radio" name="booking-time" id="morning" class="radio-input" checked="checked" value="早上 10：00 - 12：00">
+                                <input  type="radio" name="booking-time" id="morning" class="radio-input" checked="checked" value="早上 10：00 - 12：00">
                                 <div id="morning" class="radio-div"></div> 
                                 <p>上半天</p>
                             </label>

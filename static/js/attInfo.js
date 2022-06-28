@@ -17,7 +17,6 @@ afternoonTime.addEventListener("change",()=>{
 window.addEventListener("load",()=>{
     checkMemberStatus();
     let passId=getId();
-    console.log("get id:"+passId);
     fetchAttData(passId);
     setDateLimit();
 })
@@ -47,7 +46,8 @@ function getId(){
 ////fetch data of attraction////
 let openData={};
 function fetchAttData(id){
-    console.log("fetch in process");
+    let loaderCover=document.querySelector(".loader-cover");
+    loaderCover.classList.add("loader-hide");
     fetch(`/api/attraction/${id}`)
     .then(response=>{
         let res=response.json();
@@ -56,7 +56,6 @@ function fetchAttData(id){
                 openData=data;
                 startAppendImages();
                 startAppendText();
-                console.log("fetch process end");
             })
         }else{
             return "抱歉出錯了";
@@ -116,7 +115,6 @@ function startAppendImages(){
     slides=Array.from(slidesBox.children);
     navButtons=Array.from(navButtonsBox.children);
     changNavButton();
-    console.log("complete append");
 }
 
 ////append text////
@@ -145,7 +143,6 @@ transInfo.innerText=coreData["transport"];
 
 //////preparation//////
 let moveWay=slidesBox.getBoundingClientRect().width;
-console.log("moveWayOK");
 let index=1;
 slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
 
@@ -182,7 +179,6 @@ slidesBox.addEventListener("transitionend",()=>{
         controlNavButton();
     }
     if(slides[index].id==="lastClone"){
-        console.log("prebutton");
         index=slides.length-2;
         slidesBox.style.transform="translateX(-"+moveWay*index+"px)";
         slidesBox.style.transition="none";
@@ -193,7 +189,6 @@ slidesBox.addEventListener("transitionend",()=>{
 
 ////listen to nav button///
 function changNavButton(){
-    console.log("listen to change nav button");
     navButtons.forEach(button=>{
         button.addEventListener("click",()=>{
             let currentButton=document.querySelector(".current-button");
@@ -225,11 +220,9 @@ bookingBtn.addEventListener("click",e=>{
     let attractionId=0;
     if(preId!=-1){
         attractionId=url.substring(url.lastIndexOf('/') + 1,preId);
-        console.log(preId);
     }
     if(preId==-1){
         attractionId=url.substring(url.lastIndexOf('/') + 1);
-        console.log(preId);
     }
     
     let date=document.querySelector(".date input").value;

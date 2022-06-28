@@ -1,3 +1,4 @@
+
 from flask import *
 from flask import make_response
 import mysql.connector
@@ -42,6 +43,10 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
+@app.route("/member")
+def member():
+	return render_template("member.html")
+
 @app.route("/api/attractions",methods=["get"])
 def search():
 	#先處理關鍵字查詢抓取資料
@@ -66,8 +71,8 @@ def search():
 		else: #其他頁數顯示的資料處理
 			start=page*12
 			grabData(keyword,start,attractions,cursor)
-		cursor.close()
-		connection.close()  
+			cursor.close()
+			connection.close()  
 	elif pages>1 and isinstance(pages, float): #如果搜尋結果的總頁數非整數且大於一頁
 		totalPages=math.ceil(pages) #向上進位,將總頁數修正為整數
 		if page==0:
@@ -76,8 +81,8 @@ def search():
 		else:
 			start=page*12
 			grabData(keyword,start,attractions,cursor)
-		cursor.close()
-		connection.close()  
+			cursor.close()
+			connection.close()  
 	else: #如果搜尋結果有資料但小於等於1頁
 		totalPages=math.ceil(pages) #向上進位校正頁數
 		start=page*12
@@ -473,6 +478,64 @@ def checkOrderStatus(orderNumber):
 	else:
 		return jsonify({"error": True,"message": "尚未登入會員"}),403
 
+@app.route("/api/memberinfo",methods=["GET"])
+def getMemberData():
+	email=session.get("email");
+	#if user has logged in, get entire member data
+	if email :
+		#0.open connection
+		connection=mysqlPool.get_connection()
+		cursor=connection.cursor(buffered=True)
+		#1.execute sql command
+		sql="SELECT * FROM orderlist LEFT JOIN booking ON orderlist.booking_id = booking.id WHERE email=%s"
+		val=(email,)
+		cursor.execute(sql,val)
+		memberData=cursor.fetchall()
+		print(memberData)
+		#2.return conntection
+		cursor.close()
+		connection.close()
+		orders=[]		
+		if memberData:
+			for order in memberData:
+				singleOrder={
+					"number":order[1],
+					"attraction":order[10],
+					"date":str(order[12]),
+					"status":order[2]
+				} 
+				orders.append(singleOrder)
+		else:
+			orders=None		
+
+		return jsonify({"data":orders}),200
+	else:
+		return jsonify({"error": True, "message":"尚未登入會員"}),403
+
+@app.route("/api/memberinfo",methods=["PATCH"])
+def changeMemberInfo():
+	email=session.get("email");
+	print(email)
+	if email:
+		changeData=request.get_json()
+		# 0.open connection
+		connection=mysqlPool.get_connection()
+		cursor=connection.cursor(buffered=True)
+		sql="UPDATE tourmember SET password=%s WHERE email=%s"
+		val=(changeData["password"],changeData["email"],)
+		cursor.execute(sql,val)
+		connection.commit()
+		#2.return conntection
+		cursor.close()
+		connection.close()
+		return jsonify({"ok":True}),200
+	elif not email:
+		return jsonify({"erro":True,"message":"尚未登入會員"}),403
+	else:
+		return jsonify({{"erro":True,"message":"OOPS!系統出了錯誤"}}),500
+
 if __name__ == "__main__":
 	app.debug = True
+
 	app.run(host="0.0.0.0",port=3000)
+

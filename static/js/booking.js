@@ -79,7 +79,6 @@ function showOrder(data){
         listenToDelete();
         sum();
     }else{ ///if booking data doesnt exist,show reminder message up///
-        console.log("目前沒有任何待預定的行程");
         let responseDiv=document.querySelector(".response");
         let message=buildItem("h2","message");
         let body=document.querySelector("body");
@@ -107,6 +106,11 @@ function fillContent(data,img,attName,itemContent1,itemContent2,itemContent3,ite
     itemContent2.innerText=data["data"]["time"];
     itemContent3.innerText="新台幣 "+data["data"]["price"]+" 元整";
     itemContent4.innerText=data["data"]["attraction"]["address"];
+    //set default contact information in booking order
+    let contactName=document.querySelector("#contact-name");
+    contactName.value=username;
+    let contactEmail=document.querySelector("#contact-email");
+    contactEmail.value=email;
 }
 ////function for calculate total fee////
 function sum(){
@@ -138,7 +142,6 @@ function listenToDelete(){
                 })
             }else{
                 res.then(data=>{ 
-                    console.log(data);
                     window.location.replace("/");
                 })
             }

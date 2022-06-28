@@ -35,6 +35,99 @@ body {
   height: 100vh;
 }
 
+.alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-150px);
+          transform: translateY(-50%) translateX(-150px);
+  width: 300px;
+  height: 110px;
+  border-radius: 10px;
+  border: 1px solid var(--middlegray);
+  background: var(--white);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-animation: shake 0.5s;
+          animation: shake 0.5s;
+}
+
+.alert .alert-msg {
+  color: var(--deepgray);
+  font-size: 1rem;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+}
+
+.alert .alert-btn {
+  background: var(--green);
+  width: 50%;
+  color: var(--white);
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.alert-hide {
+  display: none;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    left: 48%;
+  }
+  20% {
+    left: 52%;
+  }
+  40% {
+    left: 49%;
+  }
+  60% {
+    left: 51%;
+  }
+  80% {
+    left: 49.5%;
+  }
+  100% {
+    left: 50%;
+  }
+}
+
+@keyframes shake {
+  0% {
+    left: 48%;
+  }
+  20% {
+    left: 52%;
+  }
+  40% {
+    left: 49%;
+  }
+  60% {
+    left: 51%;
+  }
+  80% {
+    left: 49.5%;
+  }
+  100% {
+    left: 50%;
+  }
+}
+
 header .nav-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -61,6 +154,7 @@ header .nav-container nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 header .nav-container nav .logo-link {
@@ -90,6 +184,55 @@ header .nav-container nav ul a {
 
 header .nav-container nav ul a:hover {
   color: var(--middlegray);
+}
+
+.down-menu {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 54px;
+  right: 0px;
+  background: var(--white);
+  border-radius: 0 0 5px 5px;
+  -webkit-animation: downMenuShowUp 0.5s;
+          animation: downMenuShowUp 0.5s;
+}
+
+.down-menu a {
+  border-top: 1px solid var(--middlegray);
+  color: var(--deepgray);
+  text-decoration: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.down-menu-hide {
+  display: none;
+}
+
+@-webkit-keyframes downMenuShowUp {
+  0% {
+    top: 50px;
+    opacity: 0;
+  }
+  100% {
+    top: 54px;
+  }
+}
+
+@keyframes downMenuShowUp {
+  0% {
+    top: 50px;
+    opacity: 0;
+  }
+  100% {
+    top: 54px;
+  }
 }
 
 main {
@@ -288,6 +431,10 @@ main form .booking-contact label input {
   border-radius: 5px;
 }
 
+main form .booking-contact label input:focus {
+  outline: var(--green) solid 2px;
+}
+
 main form .booking-contact label .warning {
   border-width: 2px;
   border-style: solid;
@@ -297,6 +444,11 @@ main form .booking-contact label .warning {
 main form .payment {
   width: 90%;
   color: var(--deepgray);
+}
+
+main form .payment .payment-title {
+  font-size: 1.1875rem;
+  font-weight: bold;
 }
 
 main form .payment label {
@@ -403,10 +555,7 @@ footer p {
 }
 
 .tappay-field-focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: var(--green) solid 2px;
 }
 
 @media screen and (max-width: 1199px) {
