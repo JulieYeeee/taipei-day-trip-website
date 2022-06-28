@@ -16,7 +16,7 @@
 + 關鍵字搜尋功能 
   ![](https://github.com/JulieYeeee/git-work/blob/main/search1.gif) 
 + 景點照片輪播效果 
-  ![](https://github.com/JulieYeeee/git-work/blob/main/search1.gif) 
+  ![](https://github.com/JulieYeeee/git-work/blob/main/view1.gif) 
 + 串接第三方金流付款預定 
   ![](https://github.com/JulieYeeee/git-work/blob/main/payment2.gif) 
 + 瀏覽訂單紀錄與修改密碼
