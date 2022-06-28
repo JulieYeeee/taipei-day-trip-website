@@ -68,6 +68,8 @@ def search():
 			start=page #從第start個顯示景點，也就是0
 			 #結束於第end個景點,也就是11
 			grabData(keyword,start,attractions,cursor) #執行函式
+			cursor.close()
+			connection.close() 
 		else: #其他頁數顯示的資料處理
 			start=page*12
 			grabData(keyword,start,attractions,cursor)
@@ -78,6 +80,8 @@ def search():
 		if page==0:
 			start=page
 			grabData(keyword,start,attractions,cursor)
+			cursor.close()
+			connection.close() 
 		else:
 			start=page*12
 			grabData(keyword,start,attractions,cursor)
