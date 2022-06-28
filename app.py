@@ -483,7 +483,7 @@ def checkOrderStatus(orderNumber):
 		return jsonify({"error": True,"message": "尚未登入會員"}),403
 
 @app.route("/api/memberinfo",methods=["GET"])
-def getMemberData():
+def getMemberOrder():
 	email=session.get("email");
 	#if user has logged in, get entire member data
 	if email :
@@ -540,4 +540,4 @@ def changeMemberInfo():
 
 if __name__ == "__main__":
 	app.debug = True
-	app.run(host="0.0.0.0",port=5000)
+	app.run(host="0.0.0.0",port=3000)

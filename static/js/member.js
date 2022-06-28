@@ -137,6 +137,7 @@ function getOrders(){
 
 function showOrders(data){
     let orderlist=document.querySelector(".orderlist");
+    console.log(data["data"]);
     data["data"].forEach(singleOrder => {
         let order=document.createElement("div");
         let orderNum=document.createElement("p");
