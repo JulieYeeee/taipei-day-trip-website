@@ -20,6 +20,8 @@ function checkOrderStatus(){
                 }else{
                     showOrderNull();
                 }
+                let loaderCover=document.querySelector(".loader-cover");
+                loaderCover.classList.add("loader-hide");
             })
         }else{
             res.then(data=>{
@@ -29,24 +31,47 @@ function checkOrderStatus(){
     })
     .catch(error=>{
         showError(error);
+        let loaderCover=document.querySelector(".loader-cover");
+        loaderCover.classList.add("loader-hide");
     })
 }
 
 function showOrder(data){
-    let message1=document.querySelector(".m1");
-    let message2=document.querySelector(".m2");
-    let orderNumber=document.querySelector(".order-number");
-    let note=document.querySelector(".note");
+    let title=document.querySelector(".thankU-title");
     if(data["data"]["status"]==1){
-        message1.innerText="行程預定成功";
-        message2.innerText="您的訂單編號如下";
-        orderNumber.innerText=data["data"]["number"];
-        note.innerText="請記下訂單編號以便預定當日核對";
+        title.innerText=" 付款成功，您的預定旅程如下：";
+        let orderInfo=document.querySelector(".order-info");
+        let image=createElement("div","image");
+        let img=createElement("img",null);
+        img.src=data["data"]["trip"]["attraction"]["image"];
+        let info=createElement("div","info");
+        let orderNum=createElement("p","order-number");
+        let number=data["data"]["number"];
+        orderNum.innerText=`訂單編號：${number}`;
+        let attName=createElement("p","att-name");
+        let name=data["data"]["trip"]["attraction"]["name"];
+        attName.innerText=`預定景點：${name}`;
+        let attAddress=createElement("p","att-address");
+        let address=data["data"]["trip"]["attraction"]["address"];
+        attAddress.innerText=`景點地址：${address}`;
+        let bookingDate=createElement("p","booking-date");
+        let date=data["data"]["trip"]["date"];
+        bookingDate.innerText=`預定日期：${date}`;
+        let bookingTime=createElement("p","booking-time");
+        let time=data["data"]["trip"]["time"];
+        bookingTime.innerText=`預定時間：${time}`;
+        orderInfo.append(image,info);
+        image.append(img);
+        info.append(orderNum,attName,attAddress,bookingDate,bookingTime);
     }else{
-        message1.innerText="行程預定未付款成功</br>您的訂單編號如下";
-        orderNumber.innerText=orderNumber;
-        note.innerText="請回到預定頁面重新付款";
+        title.innerText="付款失敗，請回預定行程重新付款。";
     }
+}
+
+function createElement(element,classname){
+    let obj=document.createElement(element);
+    obj.className=classname;
+    return obj;
 }
 
 function showOrderNull(){

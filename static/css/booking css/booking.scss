@@ -26,6 +26,63 @@ body {
 .bodyheight{
   height: 100vh;
 }
+.alert{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform:translateY(-50%) translateX(-150px);
+  width: 300px;
+  height: 110px;
+  border-radius: 10px;
+  border: 1px solid var(--middlegray);
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  animation: shake 0.5s;
+  .alert-msg{
+    color: var(--deepgray);
+    font-size: 1rem;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+  }
+  .alert-btn{
+    background: var(--green);
+    width: 50%;
+    color: var(--white);
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+}
+.alert-hide{
+  display: none;
+}
+@keyframes shake {
+  0%{
+    left:48%;
+  }
+  20%{
+    left:52%;
+  }
+  40%{
+    left:49%;
+  }
+  60%{
+    left:51%;
+  }
+  80%{
+    left:49.5%;
+  }
+  100%{
+    left:50%;
+  }
+}
 
 header {
   .nav-container {
@@ -42,6 +99,7 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
       .logo-link {
         text-decoration: none;
         .logo {
@@ -66,6 +124,35 @@ header {
       }
     }
   }
+}
+.down-menu{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 54px;
+  right:0px;
+  background: var(--white);
+  border-radius: 0 0 5px 5px;
+  animation: downMenuShowUp 0.5s;
+  a{
+    border-top:1px solid var(--middlegray);
+    color: var(--deepgray);
+    text-decoration: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+}
+.down-menu-hide{
+  display: none;
+}
+@keyframes downMenuShowUp {
+  0%{
+    top:50px;
+    opacity: 0;
+  }
+  100%{
+    top:54px;
+  }  
 }
 
 main {
@@ -192,6 +279,9 @@ main {
           border: var(--lightgray) solid 1px;
           border-radius: 5px;
         }
+        input:focus{
+          outline: var(--green) solid 2px;
+        }       
         .warning{
           border-width:2px;
           border-style: solid ;
@@ -203,6 +293,10 @@ main {
     .payment {
       width: 90%;
       color: var(--deepgray);
+      .payment-title{
+          font-size: 1.1875rem;
+          font-weight: bold;
+      }
       label {
         display: flex;
         align-items: center;
@@ -216,6 +310,7 @@ main {
           border: var(--lightgray) solid 1px;
           border-radius: 5px;
         }
+        
       }
     }
     ///預約區塊4-金額確認
@@ -258,6 +353,8 @@ main {
   display: none;
 }
 
+
+
 footer {
   flex-grow: 1;
   display: flex;
@@ -290,11 +387,14 @@ footer {
   border-color:#F54747;
 }
 .tappay-field-focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+  // border-color: #66afe9;
+  // border: 2px solid var(--green);
+  outline: var(--green) solid 2px;
+  // outline: 0;
+  // -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+  // box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
 }
+
 
 
 

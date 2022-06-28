@@ -4,32 +4,40 @@ let page=0;
 let checkLoad=false;
 ///fetch attractions///
 function fetchData(keyword,page){
+    let loader=document.createElement("div");
+    loader.className="loader";
     let attractionsContainer=document.querySelector(".adaptLayer");
-    console.log("fetch in process")
+    attractionsContainer.append(loader);
     fetch(`/api/attractions?keyword=${keyword}&page=${page}`)
     .then(response=>{
         let res=response.json();
         if (response.ok){
             res.then(data=>{
                 openData=data;
-                startAppend(openData,attractionsContainer);
+                startAppend(openData,attractionsContainer,loader);
             })
     
         }else{
             res.then(data=>{
                 openData=data;
-                errorMsg(openData,attractionsContainer);
+                errorMsg(openData,attractionsContainer,loader);
             })
         }
         
+    })
+    .catch(error=>{
+        openData=error;
+        errorMsg(openData,attractionsContainer,loader);
     })
 }
 
 
 ///處理fetch後的景點資料///
-function startAppend(data,attractionsContainer){
+function startAppend(data,attractionsContainer,loader){
     lengthOfData=data["data"].length;
-    // console.log(lengthOfData);
+     //清除loader圖示
+    
+
     for (let start=0;start<lengthOfData;start++){
     let entireInfo=data["data"][start];
     //景點資料最外層容器
@@ -60,26 +68,24 @@ function startAppend(data,attractionsContainer){
     //attraction link for heading to///
     let link=document.createElement("div");
     link.classList.add("link");
+    link.innerText="view";
     let a=document.createElement("a");
     a.href="/attraction/"+entireInfo["id"];
+    
     // //start appending
-    attractionsContainer.appendChild(attraction);
-    attraction.appendChild(image);
-    image.appendChild(img);
-    attraction.appendChild(attName);
-    attraction.appendChild(attInfo);
-    attInfo.appendChild(mrt);
-    attInfo.appendChild(cat);
-    attraction.appendChild(a);
-    a.appendChild(link);
+    attractionsContainer.append(attraction);
+    attraction.append(image,attName,attInfo,a);
+    image.append(img);
+    attInfo.append(mrt,cat);
+    a.append(link);
     }
+    loader.className="";
     checkLoad=false;
-    console.log("首頁載入景點完成")
 }
 //處理查關鍵字錯誤訊息//
-function errorMsg(openData,attractionsContainer){
+function errorMsg(openData,attractionsContainer,loader){
+    loader.className="";
     let info=openData["message"];
-    console.log(info);
     let msg=document.createElement("h3");
     msg.classList.add("errorMsg");
     msg.innerText=info;
@@ -89,7 +95,6 @@ function errorMsg(openData,attractionsContainer){
 
 
 ////listen to load////
-// let buffer=false;
 window.addEventListener("load",()=>{
     checkMemberStatus();
     fetchData(keyword,page);
@@ -97,12 +102,11 @@ window.addEventListener("load",()=>{
 
 ////listen to scroll////
 window.addEventListener("scroll",()=>{
-    if (checkLoad===false){
+    if (checkLoad==false){
         if(window.scrollY+window.innerHeight+1>=document.documentElement.scrollHeight){
-            if (openData["nextpage"]!==null){
+            if (openData["nextpage"]!=null){
                 checkLoad=true;
                 page++;
-                console.log(keyword);
                 fetchData(keyword,page);
             }
         }

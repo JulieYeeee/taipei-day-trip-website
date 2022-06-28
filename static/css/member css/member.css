@@ -1,0 +1,541 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 16px;
+}
+
+:root {
+  --deepgray: #666666;
+  --green: #448899;
+  --lightgray: #e8e8e8;
+  --middlegray: #cccccc;
+  --black: #000000;
+  --white: #ffffff;
+}
+
+body {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+body .change-msg {
+  width: 300px;
+  background-color: var(--white);
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transform: translateX(-150px);
+          transform: translateX(-150px);
+  border: 1px solid var(--middlegray);
+}
+
+body .change-msg p {
+  color: var(--deepgray);
+  text-align: center;
+  padding: 10px;
+}
+
+body .change-msg div {
+  cursor: pointer;
+  background: #448899;
+  color: var(--white);
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin-bottom: 10px;
+}
+
+body .change-hide {
+  display: none;
+}
+
+header {
+  width: 100%;
+}
+
+header .nav-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  background-color: var(--white);
+  position: fixed;
+  height: 54px;
+  z-index: 10;
+  border-bottom: var(--lightgray) solid 1px;
+}
+
+header .nav-container nav {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+header .nav-container nav .logo-link {
+  text-decoration: none;
+}
+
+header .nav-container nav .logo-link .logo {
+  color: var(--green);
+  font-size: 1.875rem;
+}
+
+header .nav-container nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .nav-container nav ul a {
+  color: var(--deepgray);
+  text-decoration: none;
+  font-size: 1rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+header .nav-container nav ul a:hover {
+  color: var(--middlegray);
+}
+
+.down-menu {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 54px;
+  right: 0px;
+  background: var(--white);
+  border-radius: 0 0 5px 5px;
+  -webkit-animation: downMenuShowUp 0.5s;
+          animation: downMenuShowUp 0.5s;
+}
+
+.down-menu a {
+  border-top: 1px solid var(--middlegray);
+  color: var(--deepgray);
+  text-decoration: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.down-menu-hide {
+  display: none;
+}
+
+@-webkit-keyframes downMenuShowUp {
+  0% {
+    top: 50px;
+    opacity: 0;
+  }
+  100% {
+    top: 54px;
+  }
+}
+
+@keyframes downMenuShowUp {
+  0% {
+    top: 50px;
+    opacity: 0;
+  }
+  100% {
+    top: 54px;
+  }
+}
+
+main {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 54px;
+  position: relative;
+}
+
+main .loader-cover {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: var(--white);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .loader-cover .loader {
+  background: url("/static/images/Rolling-1s-200px.gif");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 60px;
+}
+
+main .loader-hide {
+  display: none;
+}
+
+main .account {
+  margin: 30px 0 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 65%;
+}
+
+main .account .photo {
+  width: 10rem;
+  height: 10rem;
+  background: var(--green);
+  border-radius: 50%;
+  position: relative;
+  margin: 0 10px;
+}
+
+main .account .photo .photo-p {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+  left: 50%;
+  font-size: 3rem;
+  color: var(--white);
+}
+
+main .account .info {
+  margin: 0 10px;
+}
+
+main .account .info p {
+  padding: 5px;
+  color: var(--deepgray);
+  font-size: 1rem;
+}
+
+main .account .info .psw-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .account .info .psw-label input {
+  background: none;
+  border-style: none;
+  color: var(--deepgray);
+  font-size: 1rem;
+  width: 50%;
+}
+
+main .account .info .psw-label .change-psw {
+  background: var(--deepgray);
+  color: var(--lightgray);
+  font-size: 0.5rem;
+  padding: 3px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+main .account .info .psw-label .cancel-psw {
+  background: var(--deepgray);
+  color: var(--lightgray);
+  font-size: 0.5rem;
+  padding: 3px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+main .account .info .psw-label .cancel-hide {
+  display: none;
+}
+
+main .title-box {
+  border-top: 1px solid var(--lightgray);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 65%;
+  padding: 15px 0;
+  margin-top: 10px;
+}
+
+main .title-box div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 90%;
+}
+
+main .title-box div p {
+  padding: 3px 0px;
+  width: 25%;
+  text-align: center;
+  color: var(--deepgray);
+}
+
+main .orderlist {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 65%;
+  border-top: 1px solid var(--lightgray);
+  padding: 10px 0;
+}
+
+main .orderlist div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 90%;
+  margin: 10px 0;
+}
+
+main .orderlist div p {
+  padding: 3px 0px;
+  width: 25%;
+  text-align: center;
+  color: var(--deepgray);
+}
+
+footer {
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 45px;
+  height: 104px;
+  background: #757575;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 960px) {
+  main .account {
+    width: 75%;
+  }
+  main .account .photo {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+  main .account .photo .photo-p {
+    font-size: 2rem;
+  }
+  main .account .info .psw-label {
+    width: 100%;
+  }
+  main .account .info .psw-label input {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 821px) {
+  main .account {
+    width: 80%;
+  }
+  main .account .photo {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+  main .account .photo .photo-p {
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+  main .account .info p {
+    padding: 3px;
+    font-size: 1rem;
+  }
+  main .account .info .psw-label {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  main .title-box {
+    width: 80%;
+  }
+  main .orderlist {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main .account {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 90%;
+  }
+  main .account .photo {
+    width: 6rem;
+    height: 6rem;
+  }
+  main .account .photo .photo-p {
+    font-size: 1.5rem;
+  }
+  main .account .info {
+    border: 1px solid var(--lightgray);
+    padding: 20px 40px;
+    width: 100%;
+    margin: 20px 10px 0 10px;
+  }
+  main .account .info p {
+    padding: 3px 0 0;
+  }
+  main .account .info .psw-label input {
+    width: 45%;
+  }
+  main .title-box {
+    width: 90%;
+  }
+  main .orderlist {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  main .account {
+    width: 100%;
+  }
+  main .title-box {
+    width: 100%;
+  }
+  main .title-box div {
+    width: 100%;
+  }
+  main .orderlist {
+    width: 100%;
+  }
+  main .orderlist div {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main .account {
+    width: 110%;
+  }
+  main .account .info {
+    padding: 20px 10px;
+  }
+  main .account .info .psw-label input {
+    font-size: 1rem;
+    width: 50%;
+  }
+  main .account .title-box {
+    width: 110%;
+  }
+  main .account .title-box div {
+    width: 100%;
+    padding: 1px;
+  }
+  main .account .orderlist {
+    width: 110%;
+    padding: 1px;
+  }
+  main .account .orderlist div {
+    width: 110%;
+    padding: 1px;
+  }
+  main .account .orderlist div p {
+    font-size: 0.8rem;
+  }
+}
+/*# sourceMappingURL=member.css.map */

@@ -72,7 +72,7 @@ let scanner=false;
 let tappayStatus=false;
 let blanks=0;
 
-TPDirect.card.onUpdate(function (update) {   
+TPDirect.card.onUpdate(function (update) {
     // update.canGetPrime === true
     if (update.canGetPrime) {
         tappayStatus=true;
@@ -81,6 +81,15 @@ TPDirect.card.onUpdate(function (update) {
         tappayStatus=false;
     }    
 });
+
+function listenToPayment(tpfields){
+    tpfields.forEach(input=>{
+        input.addEventListener("change",()=>{
+            input.classList.remove("paywarning");
+        })
+    })
+};
+
 
 bookingForm.addEventListener("submit",e=>{
     e.preventDefault();
@@ -93,17 +102,21 @@ bookingForm.addEventListener("submit",e=>{
          }
      })
      if (blanks!=0){
-        alert("聯絡資訊未填或缺漏");
+        // alert("聯絡資訊未填或缺漏");    
+        alert("聯絡資訊未填或不完整，請檢視。");
         scanner=false;
+        //touch a trigger for listening blanks in form
+        listenToBlanks(contactInfo);
+        return;
      }else{
         scanner=true;
      }    
-     //touch a trigger for listening blanks in form
-     listenToBlanks(contactInfo);    
      //if form hads been fill up, get tappay prime
     if (tappayStatus==false){
-        alert("信用卡資訊缺漏或有誤");
+        alert("信用卡資訊不完整或有誤，請確認。");
+        return;
     }
+    //if all blanks has been filled up,go get prime
     if(scanner && tappayStatus){
         getPrime();
     }
@@ -118,6 +131,33 @@ function listenToBlanks(contactInfo){
     })
 }
 
+function alert(msgText){
+    let alertElement=document.querySelector(".alert");
+    if(!alertElement){
+        let popupAlert=document.createElement("div");
+        popupAlert.className="alert";
+        let msg=document.createElement("p");
+        msg.innerHTML="（！）<br/>"+msgText;
+        msg.className="alert-msg";
+        let btn=document.createElement("div");
+        btn.innerText="確認";
+        btn.className="alert-btn";
+        let body=document.querySelector("body");
+        body.append(popupAlert);
+        popupAlert.append(msg,btn);
+        listenToEnsure(btn,popupAlert);
+    }else{
+        let msg=document.querySelector(".alert-msg");
+        msg.innerHTML="（！）<br/>"+msgText;
+        alertElement.classList.remove("alert-hide");
+    }
+};
+
+function listenToEnsure(btn,popupAlert){
+    btn.addEventListener("click",()=>{
+        popupAlert.classList.add("alert-hide");
+    })
+}
 
 // call TPDirect.card.getPrime when user submit form to get tappay prime
 function getPrime(){

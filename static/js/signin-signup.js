@@ -1,6 +1,7 @@
+let username="";
+let email="";
 ////check member status on every page on taipei tour website確認會員登入狀態////
 function checkMemberStatus(){
-    console.log("準備確認會員狀態")
     fetch("/api/user",{
         method:"GET"
     })
@@ -12,6 +13,8 @@ function checkMemberStatus(){
                     showSignin();
                 }
                 else{
+                    username=status["data"]["name"];
+                    email=status["data"]["email"];
                     showSignout(status);
                 }
             })
@@ -24,18 +27,23 @@ function checkMemberStatus(){
 function showSignin(){
     let memberStatusBtn=document.querySelector(".member-status");
     memberStatusBtn.innerText="登入/註冊";
-    console.log("顯示尚未登入");
+    if (page=="member"){
+        window.location.replace("/");
+    }
 }
 ///狀態已登入，顯示"登出系統"///
 function showSignout(status){
     let memberStatusBtn=document.querySelector(".member-status");
-    memberStatusBtn.innerText="登出系統";
+    memberStatusBtn.innerText="我的帳戶";
     if (page=="booking"){
         let username=status["data"]["name"];
         let welcome=document.querySelector(".booking-welcome")
         welcome.innerText=`你好，${username}，待預定的行程如下：`;
     }
-    console.log("顯示已登入");
+    if(page=="member"){
+        showMemberInfo(username,email);
+        getOrders();
+    }
 }
 
 
@@ -44,15 +52,37 @@ let body=document.querySelector("body");
 let memberStatusBtn=document.querySelector(".member-status");
 ///listen to signin/signup button 監聽右上角按鈕，並觸發對應函式///
 memberStatusBtn.addEventListener("click",()=>{
-    if (memberStatusBtn.innerText==="登入/註冊"){
-        buildForm();
-        console.log("complete building form");
+    if(memberStatusBtn.innerText=="登入/註冊"){
+            buildForm();
     }
-    if(memberStatusBtn.innerText==="登出系統"){
-        signout();
-        console.log("sign out");
-    }
+    if(memberStatusBtn.innerText=="我的帳戶"){
+        let downMenu=document.querySelector(".down-menu");
+        if(!downMenu){
+            showMenu();
+        }else if(downMenu.className=="down-menu down-menu-hide"){
+            downMenu.classList.remove("down-menu-hide");
+        }else{
+            downMenu.classList.add("down-menu-hide");
+        }
+    }     
 })
+
+
+function showMenu(){
+    let nav=document.querySelector("nav");
+    let downMenu=document.createElement("div");
+    downMenu.className="down-menu";
+    let item1=document.createElement("a");
+    item1.innerText="會員專區";
+    item1.href="/member";
+    let item2=document.createElement("a");
+    item2.innerText="帳號登出";
+    item2.addEventListener("click",()=>{
+        signout();
+    })
+    downMenu.append(item1,item2);
+    nav.append(downMenu);
+}
 ///fetch for signing out///
 function signout(){
     fetch("/api/user",{
@@ -64,7 +94,6 @@ function signout(){
             res.then(data=>{
                 if(data["ok"]){
                     reloadPage()
-                    console.log("已經登出");
                 }
             })
         }else{
@@ -72,6 +101,8 @@ function signout(){
         }
     }) 
 }
+
+
 /////trigger for reload page////
 function reloadPage(){
     window.location.reload();
@@ -85,7 +116,6 @@ function buildForm(){
 
     let signinSignupForm=document.createElement("form");
     signinSignupForm.className="signin-signup-form turn-on";
-    // signinSignupForm.action="#";
 
     let formDeco=document.createElement("div");
     formDeco.className="border-deco";
@@ -199,18 +229,26 @@ function listenToInputButton(inputButton,inputName,inputEmail,inputPassword,remi
         let email=inputEmail.value;
         let password=inputPassword.value;
         if(inputButton.innerText==="註冊新帳戶"){
-            console.log("註冊會員介面");
             if(username && email && password){
-                signup(username,email,password,reminder);
+                if(email.indexOf("@")>1){
+                    signup(username,email,password,reminder);
+                }else{
+                    remind("信箱格式不正確",reminder);
+                }
+                
             }else{
                 remind("請輸入註冊資料",reminder);
             }
         }
 
         if(inputButton.innerText==="登入帳戶"){
-            console.log("登入會員介面");
             if(email && password){
-                signin(email,password,reminder);        
+                if(email.indexOf("@")>1){
+                    signin(email,password,reminder);  
+                }else{
+                    remind("信箱格式錯誤",reminder);
+                }
+                      
             }else{
                 remind("請輸入會員資料",reminder);
             }
@@ -291,14 +329,12 @@ function remind(msg,reminder){
 
 
 let goBooking=document.querySelector(".go-booking");
-console.log(goBooking);
 goBooking.addEventListener("click",()=>{
     let memberStatusBtn=document.querySelector(".member-status");
-    if (memberStatusBtn.innerText==="登入/註冊"){
+    if (memberStatusBtn.innerText=="登入/註冊"){
         buildForm();
-        console.log("complete building form");
     }
-    if(memberStatusBtn.innerText==="登出系統"){
+    if(memberStatusBtn.innerText=="我的帳戶"){
         goBooking.href="/booking";
     }
 })
