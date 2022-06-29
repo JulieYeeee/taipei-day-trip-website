@@ -83,6 +83,7 @@
   + 使用 AJAX 將新密碼送至資料庫更新。
 
 ----
+![](https://github.com/JulieYeeee/git-work/blob/main/taipei-rwd.png)   
 ## 開發者資訊：  
 葉怡君 Julie Ye  
 📩 oopsyeh056@gmail.com   
