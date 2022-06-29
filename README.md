@@ -1,11 +1,11 @@
 # Taipei-day-trip-website 台北一日遊 
 台北一日遊是一個景點導覽預約平台，選擇預約日期並付款，即可預約。  
 
-**** 
+---  
 上線網址: http://54.225.122.244:3000/  
 測試帳號: test@gmail.com  
 測試密碼: test  
-**** 
+---   
 ## 主要功能 
 + Popup 會員登入介面  
   ![](https://github.com/JulieYeeee/git-work/blob/main/popup1.gif)   
