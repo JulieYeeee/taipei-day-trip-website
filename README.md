@@ -1,5 +1,6 @@
 # Taipei-day-trip-website 台北一日遊 
 台北一日遊是一個景點導覽預約平台，選擇預約日期並付款，即可預約。  
+![](https://github.com/JulieYeeee/git-work/blob/main/taipei-rwd.png)  
 
 ----
 
@@ -83,7 +84,7 @@
   + 使用 AJAX 將新密碼送至資料庫更新。
 
 ----
-![](https://github.com/JulieYeeee/git-work/blob/main/taipei-rwd.png)   
+ 
 ## 開發者資訊：  
 葉怡君 Julie Ye  
 📩 oopsyeh056@gmail.com   
