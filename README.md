@@ -83,7 +83,8 @@
   + 使用 AJAX 將新密碼送至資料庫更新。
 
 ----
-開發者資訊：
-葉怡君 Julie Ye
-📩 
+## 開發者資訊：  
+葉怡君 Julie Ye  
+📩 oopsyeh056@gmail.com   
+🔗 https://www.linkedin.com/in/julieyeeee/  
 
